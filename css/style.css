@@ -1,0 +1,11 @@
+.nav > li > a:hover{
+    background-color:rgb(141, 54, 54);
+}
+
+.navbar{
+  padding-top: 0px;  
+  padding-bottom: 0px; 
+}
+.container-dark {
+    background: #111;
+}
