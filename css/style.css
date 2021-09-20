@@ -1,11 +1,33 @@
-.nav > li > a:hover{
-    background-color:rgb(141, 54, 54);
-}
-
 .navbar{
   padding-top: 0px;  
   padding-bottom: 0px; 
 }
+
 .container-dark {
     background: #111;
+    color: #fff;
+}
+
+.carousel-item {
+  height: 20rem;
+  margin-bottom: 5%;
+}
+
+.carousel-control-next {
+  justify-content:end;
+  background-color: #333;
+  width: 3%;
+}
+
+.carousel-control-prev {
+  justify-content:start;
+  background-color: #333;
+  width: 3%;
+}
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+  width:  2.5vw;
+  height: 2.5vw;
+  opacity: 0.75;
 }
