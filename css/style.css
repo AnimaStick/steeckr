@@ -31,3 +31,18 @@
   height: 2.5vw;
   opacity: 0.75;
 }
+
+.thumbnail{
+  width: 200px;
+  height: 200px;
+  align-items: center;
+  float: left;
+}
+.categoria-primary{
+  background-color: blue;
+}
+
+.albuns-item{
+  width: 80%;
+  float: right;
+}
