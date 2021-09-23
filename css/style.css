@@ -1,3 +1,9 @@
+:root{
+  --background : #111; 
+}
+body{
+  background-color: var(--background);
+}
 .navbar{
   padding-top: 0px;  
   padding-bottom: 0px; 
@@ -23,6 +29,34 @@
   justify-content:start;
   background-color: #333;
   width: 3%;
+}
+
+/*HEADER*/
+.logo-default{
+  width: 5rem;
+}
+.navbar-container{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+}
+.menu{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.menu-item{
+  border-radius: 0.5rem;
+}
+.menu-item-active{
+  background-color: rgb(101,101,101);
+}
+
+/*TÍTULO DAS SEÇÕES*/
+.title{
+  margin: 3rem 0;
+  text-align: center;
 }
 
 .carousel-control-next-icon,
