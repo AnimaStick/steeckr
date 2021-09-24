@@ -1,18 +1,16 @@
 :root{
   --background : #111; 
+  --fontcolor : #fff;
 }
 body{
   background-color: var(--background);
+  color: var(--fontcolor);
 }
 .navbar{
   padding-top: 0px;  
   padding-bottom: 0px; 
 }
 
-.container-dark {
-    background: #111;
-    color: #fff;
-}
 
 .carousel-item {
   height: 20rem;
@@ -78,5 +76,10 @@ body{
 
 .albuns-item{
   width: 80%;
+  float: right;
+}
+
+.qtdfig{
+  text-align: right;
   float: right;
 }
