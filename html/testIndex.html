@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--Tanto faz-->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--Logo e titulo-->
+        <link rel="shortcut icon" type="image/x-icon" href="../images/LogoWS.png" />
+        <title>Steeckr</title>
+
+        <!--CSS-->
+        <link id="indexCSS" rel="stylesheet" href="../css/testStyle.css">
+
+        <!--JS-->
+        <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="../js/testScript.js"></script>
+
+    </head>
+
+    <body>
+        <!--Corpo da pagina-->
+        <div class="wrapper">
+
+            <!--Barra de cima-->
+            <div class="top_navbar">
+
+                <!--Botao da logo-->
+                <div class="logo_icon"><img src="../images/LogoWS.png" class="logoBtn" alt="Steeckr logo">
+                </div>
+
+                <!--Conteudo da barra superior-->
+                <div class="top_menu">
+                    <div class="logo">Steeckr</div>
+
+                    <!--Barra de pesquisa-->
+                    <div class="search_bar_div">
+                        <input type="text" class="textEntry" placeholder="Procurando por..."></input>
+                        <a href="#"><i class="fas fa-search"></i></a>
+                    </div>
+
+                    <!--Região direita da barra superior-->
+                    <div class="right_area">
+                        <ul>
+                            <li><a href="#" class="search_button"><i class="fas fa-search"></i></a></li>
+                            <li><a href="#"><i class="fas fa-user"></i></a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+        
+            <!--Barra de navegação lateral-->
+            <div class="sidebar">
+
+                <!--Lista superior-->
+                <ul class="top_list">
+                    <li class="menu_item home" onmouseover="changeSize(this)" onmouseout="changeSize(this)" onclick="showContent(this)"><a href="#">
+                        <span class="icon"><i class="fas fa-home"></i></span>
+                        <span class="title">Home</span>
+                    </a></li>
+                    <li class="menu_item ranking" onmouseover="changeSize(this)" onmouseout="changeSize(this)" onclick="showContent(this)"><a href="#">
+                        <span class="icon"><i class="fas fa-trophy"></i></span>
+                        <span class="title">Ranking</span>
+                    </a></li>
+                    <li class="menu_item store" onmouseover="changeSize(this)" onmouseout="changeSize(this)" onclick="showContent(this)"><a href="#">
+                        <span class="icon"><i class="fas fa-gem"></i></span>
+                        <span class="title">Store</span>
+                    </a></li>
+                    <li class="menu_item album" onmouseover="changeSize(this)" onmouseout="changeSize(this)" onclick="showContent(this)"><a href="#">
+                        <span class="icon"><i class="fas fa-book"></i></span>
+                        <span class="title">Album</span>
+                    </a></li>
+                </ul>
+                
+                <!--Lista inferior-->
+                <ul class="bottom_list">
+                    <li class="menu_item configs" onmouseover="changeSize(this)" onmouseout="changeSize(this)" onclick="showContent(this)"><a href="#">
+                        <span class="icon"><i class="fas fa-cog"></i></span>
+                        <span class="title">Configs</span>
+                    </a></li>
+                </ul>
+
+            </div>
+            
+            <!--Conteudo da home-->
+            <div data-include="homeContent.html"></div>
+
+            <!--Conteudo da ranking-->
+            <div data-include="rankingContent.html"></div>
+
+            <!--Conteudo da store-->
+            <div data-include="storeContent.html"></div>
+
+            <!--Conteudo da album-->
+            <div data-include="albumContent.html"></div>
+
+            <!--Conteudo da configs-->
+            <div data-include="configsContent.html"></div>
+            
+        </div>
+    </body>
+</html>
