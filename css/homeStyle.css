@@ -20,6 +20,11 @@ body{
   padding: 15px;
 }
 
+.main_container.blur{
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+}
+
 .animation_thumb{
     display: inline-flex;
     height: 196px;

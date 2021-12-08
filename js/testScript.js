@@ -12,6 +12,44 @@ $(document).ready(function(){
     });
 });
 
+$(document).scroll(function() {
+    try {
+        var y = $(this).scrollTop();
+        const form_popup = document.getElementsByClassName('form_popup')[0]
+        resizeStuff()
+        if (y > 400) {
+            form_popup.style.display = "block"
+        } else {
+            form_popup.style.display = "none"
+        }
+        if (form_popup.style.display == "block") {
+                $('.top_navbar').addClass("blur")
+                $('.sidebar').addClass("blur")
+                $('.main_container').addClass("blur")
+            
+        } else {
+                $('.top_navbar').removeClass("blur")
+                $('.sidebar').removeClass("blur")
+                $('.main_container').removeClass("blur")
+        }
+    } catch (err) {
+        console.log("oie");
+    }
+});
+
+window.addEventListener('resize', function(event){
+    resizeStuff()
+});
+
+function resizeStuff() {
+    var w = window.innerWidth
+    var h = window.innerHeight
+    tnb = document.getElementsByClassName('top_navbar')[0]
+    fp = document.getElementsByClassName('form_popup')[0]
+    fp.style.paddingLeft = `${(w - 700)/2}px`
+    fp.style.height = `${h - 60}px`
+}
+
 //Muda o estado do objeto no menu lateral
 function changeSize(menuItem) {
     menuItem.classList.toggle("extended");
