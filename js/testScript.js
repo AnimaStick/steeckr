@@ -44,8 +44,9 @@ window.addEventListener('resize', function(event){
 function resizeStuff() {
     var w = window.innerWidth
     var h = window.innerHeight
-    tnb = document.getElementsByClassName('top_navbar')[0]
+
     fp = document.getElementsByClassName('form_popup')[0]
+
     fp.style.paddingLeft = `${(w - 700)/2}px`
     fp.style.height = `${h - 60}px`
 }
@@ -53,6 +54,12 @@ function resizeStuff() {
 //Muda o estado do objeto no menu lateral
 function changeSize(menuItem) {
     menuItem.classList.toggle("extended");
+}
+
+function showMenu() {
+    e = document.getElementsByClassName("dropdown-content")[0]
+    if (e.style.visibility == `collapse`) e.style.visibility = `visible`
+    else e.style.visibility = `collapse`
 }
 
 //Muda o conteudo da pagina

@@ -106,6 +106,18 @@ body{
   color: #aaa;
 }
 
+.dropdown-content {
+  visibility: collapse;
+  position: absolute;
+  background-color: #0a0a10;
+  color: #aaa;
+  top: 60px;
+  right: 0;
+  min-width: 160px;
+  padding: 12px 16px;
+  z-index: 1;
+}
+
 .wrapper .top_navbar .top_menu .right_area li .search_button {
   visibility: collapse;
 }
@@ -230,6 +242,7 @@ body{
   background-color: #ddd;
   outline: none;
 }
+
 .form_container input[type=text]:focus {
   background-color: #ddd;
   outline: none;
@@ -242,7 +255,7 @@ body{
   border: none;
   cursor: pointer;
   width: 100%;
-  margin-bottom:10px;
+  margin-bottom: 10px;
   opacity: 0.8;
 }
 
@@ -381,7 +394,7 @@ body{
     filter: blur(0);
     -webkit-filter: blur(0);
   }
-  
+
   .wrapper .top_navbar.blur{
     filter: blur(0);
     -webkit-filter: blur(0);

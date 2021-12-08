@@ -44,10 +44,15 @@
                     <div class="right_area">
                         <ul>
                             <li><a href="#" class="search_button"><i class="fas fa-search"></i></a></li>
-                            <li><a href="#"><i class="fas fa-user"></i></a></li>
+                            <li><a href="#" class="user_button" onclick="showMenu()"><i class="fas fa-user user_button"></i></a></li>
                         </ul>
                     </div>
 
+                </div>
+
+                <!-- Opções do usuário -->
+                <div class="dropdown-content">
+                    <p>Área do usuário</p>
                 </div>
 
             </div>
@@ -85,11 +90,13 @@
 
             </div>
 
+            <!-- container do login de popup -->
             <div class="form_popup" id="myForm">
-                <div class="ilustration">
-                    
-                </div>
 
+                <!-- ilustarção legalzinha -->
+                <div class="ilustration"></div>
+
+                <!-- popup de login -->
                 <form action="/action_page.php" class="form_container">
                     <h1>Login</h1>
                 
@@ -101,7 +108,7 @@
                 
                     <button type="submit" class="btn">Login</button>
                 </form>
-                
+
             </div>
             
             <!-- Conteudo da home -->
