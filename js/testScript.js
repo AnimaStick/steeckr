@@ -16,8 +16,8 @@ $(document).scroll(function() {
     try {
         var y = $(this).scrollTop();
         const form_popup = document.getElementsByClassName('form_popup')[0]
-        resizeStuff()
-        if (y > 400) {
+        // resizeStuff()
+        if (y > 200) {
             form_popup.style.display = "block"
         } else {
             form_popup.style.display = "none"
@@ -37,19 +37,19 @@ $(document).scroll(function() {
     }
 });
 
-window.addEventListener('resize', function(event){
-    resizeStuff()
-});
+// window.addEventListener('resize', function(event){
+//     resizeStuff()
+// });
 
-function resizeStuff() {
-    var w = window.innerWidth
-    var h = window.innerHeight
+// function resizeStuff() {
+//     var w = window.innerWidth
+//     var h = window.innerHeight
 
-    fp = document.getElementsByClassName('form_popup')[0]
+//     fp = document.getElementsByClassName('form_popup')[0]
 
-    fp.style.paddingLeft = `${(w - 700)/2}px`
-    fp.style.height = `${h - 60}px`
-}
+//     fp.style.paddingLeft = `${(w - 700)/2}px`
+//     fp.style.height = `${h - 60}px`
+// }
 
 //Muda o estado do objeto no menu lateral
 function changeSize(menuItem) {
