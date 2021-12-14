@@ -12,6 +12,7 @@
         <!-- JS -->
         <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         <script src="../js/testScript.js"></script>
 
         <!-- Titulo + Icone -->
@@ -23,16 +24,25 @@
    <div class="container-fluid  ">
        <div class="row ms-5 mt-2">
             <a class="col-md-2"  href="testIndex.html">
-                <img src="../images/LogoW.png" alt="Logo do site" class="d-inline-block img-fluid">
+                <img src="../images/LogoW.png" alt="Logo do site" class="d-block img-fluid" id="logoSignIn">
             </a>
        </div>
    </div>
     
 
-    <div class="container-fluid w-50 bg-light p-5 border border-success rounded ">
+    <div class="container-fluid w-25 bg-light p-5 rounded text-dark " id="formSignIn">
         <form class="form-signin">
-            <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+          <div class="row">
+            
+            <div class="text-center col-sm-12">
+              <img class="mb-4 " src="../images/LogoBS.png" alt="" width="72" height="72">
+            </div>
+          </div>
+
+          
+          
+            
+            <h1 class="h3 mb-3 font-weight-normal">Login</h1>
             <div class="input-group mb-3">
                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                 <input class="form-control" id="username" name="username" placeholder="Username" value="">
@@ -46,14 +56,9 @@
                  </span>
             </div>
            
-            <div class="checkbox mb-3">
-              <label>
-                <input type="checkbox" value="remember-me"> Remember me
-              </label>
-            </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-            <p class="mt-5 mb-3 text-muted">© 2017-2018</p>
-          </form>
+            <button class="btn btn-lg btn-primary btn-block mt-2" type="submit">Logar</button>
+            <p class="mt-5 mb-3 text-muted text-center"> © 2021-2022 Steeckr </p>
+        </form>
     </div>
    
 

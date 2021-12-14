@@ -46,19 +46,50 @@ $(document).scroll(function() {
     }
 });
 
-// window.addEventListener('resize', function(event){
-//     resizeStuff()
-// });
+window.addEventListener('resize', function(event){
+    resizeStuff()
+});
 
-// function resizeStuff() {
-//     var w = window.innerWidth
-//     var h = window.innerHeight
+function resizeStuff() {
+    var w = window.innerWidth
+    var h = window.innerHeight
 
-//     fp = document.getElementsByClassName('form_popup')[0]
+    formsign = document.getElementById('formSignIn')
+    logosign = document.getElementById('logoSignIn')
+    //Tira logo
+    if(w< 770){
+        logosign.classList.remove("d-block")
+        logosign.classList.add("d-none")
+    }
+    else{
+        logosign.classList.remove("d-none")
+        logosign.classList.add("d-block")
+    }
 
-//     fp.style.paddingLeft = `${(w - 700)/2}px`
-//     fp.style.height = `${h - 60}px`
-// }
+    //Aumenta a div
+    if(w < 370){
+        formsign.classList.remove("w-25")
+        formsign.classList.remove("w-75")
+        formsign.classList.remove("w-50")
+        
+    }
+    else if(w < 560){
+        formsign.classList.remove("w-25")
+        formsign.classList.remove("w-50")
+        formsign.classList.add("w-75")
+    }
+    else if(w < 1280){
+        formsign.classList.remove("w-75")
+        formsign.classList.remove("w-25")
+        formsign.classList.add("w-50")
+    }
+    else{
+        formsign.classList.remove("w-75")
+        formsign.classList.remove("w-50")
+        formsign.classList.add("w-25")
+    }
+   
+}
 
 //Muda o estado do objeto no menu lateral
 function changeSize(menuItem) {
