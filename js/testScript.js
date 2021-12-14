@@ -16,8 +16,17 @@ $(document).scroll(function() {
     try {
         var y = $(this).scrollTop();
         const form_popup = document.getElementsByClassName('form_popup')[0]
+        const imgLog = document.getElementById('imgForm')
+        let sizeY = $(window).height();
+        let sizeX = $(window).width();
         // resizeStuff()
         if (y > 200) {
+            if(sizeX < 800){
+                imgLog.style.display = "none"
+            }
+            else{
+                imgLog.style.display = "block"
+            }
             form_popup.style.display = "block"
         } else {
             form_popup.style.display = "none"
@@ -60,6 +69,22 @@ function showMenu() {
     e = document.getElementsByClassName("dropdown-content")[0]
     if (e.style.visibility == `collapse`) e.style.visibility = `visible`
     else e.style.visibility = `collapse`
+}
+
+function seePassword(){
+    let senha = document.getElementById("password")
+    let icon = document.getElementById("togglePassword")
+    console.log(icon.classList)
+    if(senha.getAttribute("type") == "password"){
+        senha.type = "text"
+        icon.classList.remove("fa-eye-slash")
+        icon.classList.add("fa-eye")
+    }
+    else{
+        senha.type = "password"
+        icon.classList.remove("fa-eye")
+        icon.classList.add("fa-eye-slash")
+    }
 }
 
 //Muda o conteudo da pagina

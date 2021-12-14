@@ -93,31 +93,40 @@
 
             </div>
 
-            <div class="container mt-5 ">
+            <div class="container-fluid mt-5 ">
                 <!-- container do login de popup -->
                 <div class="form_popup w-75 mt-5 align-middle" id="myForm">
                     <div class="row mt-5">
-                        <div class="container bg-dark col-md-4 offset-md-4  ">
-                            a
+                        <!-- ilustarção legalzinha -->
+                        <div class="container-fluid bg-dark col-md-4 offset-md-4  p-0 h-50" id="imgForm">
+                            <img src="https://s2.glbimg.com/2yK3rTPvEDofzpusIhAgrkasz9A=/e.glbimg.com/og/ed/f/original/2019/09/30/oriontree_fairbairn_960.jpg"  class="img-fluid ">
                         </div>
                     
     
                         <!-- popup de login -->
-                        <div class="container col-md-4 p-1">
+                        <div class="container-fluid col-md-4 p-1 h-50" >
                             <form class="bg-light p-5">
-                                <div class="mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    <input class="form-control" id="username" name="username" placeholder="Username" value="">
                                 </div>
-                                <div class="mb-3">
-                                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                    <input class="form-control" type="password" id="password" name="password" placeholder="Password" value="">
+                                    <span class="input-group-text">
+                                      <i class="fas fa-eye-slash" id="togglePassword" 
+                                     style="cursor: pointer" onclick="seePassword(this)"></i>
+                                     </span>
                                 </div>
+                                <div class="form-group">
+                                    <a href=""> <small class="form-text text-muted">Registrar-se</small> </a>
+                                </div>
+                               
                                 <button type="submit" class="btn btn-success">Login</button>
                             </form>
                         </div>
                     </div>
-                    <!-- ilustarção legalzinha -->
+                    
                 
                 </div>
             </div>
