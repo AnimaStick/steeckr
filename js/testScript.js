@@ -54,8 +54,8 @@ function resizeStuff() {
     var w = window.innerWidth
     var h = window.innerHeight
 
-    formsign = document.getElementById('formSignIn')
-    logosign = document.getElementById('logoSignIn')
+    let formsign = document.getElementById('divSignIn')
+    let logosign = document.getElementById('logoSignIn')
     //Tira logo
     if(w< 770){
         logosign.classList.remove("d-block")
@@ -102,10 +102,100 @@ function showMenu() {
     else e.style.visibility = `collapse`
 }
 
+function signUpValidation(){
+    let signinForm = document.getElementById("formSignUp")
+
+    let email = document.getElementById("emailSignUp")
+    let username = document.getElementById("usernameSignUp")
+    let password = document.getElementById("passwordSignUp")
+    let confirmPass = document.getElementById("confirmPassSignUp")
+
+    let errorEmail = document.getElementById("errorEmailSignUp")
+    let errorUser = document.getElementById("errorUsernameSignUp")
+    let errorPass = document.getElementById("errorPasswordSignUp")
+    let errorConfirmPass = document.getElementById("errorConfirmPassSignUp")
+
+    // console.log(validateEmail(email.value))
+
+    // if(validateEmail(email.value)){
+
+    // }
+
+    if(username.value != "admin"){
+        username.classList.remove("is-invalid")
+        username.classList.add("is-valid")
+        errorUser.classList.add("d-none")
+    }
+    else{
+        username.classList.remove("is-valid")
+        username.classList.add("is-invalid")
+        errorUser.classList.remove("d-none")
+    }
+
+    if(password.value.length > 8){
+        password.classList.remove("is-invalid")
+        password.classList.add("is-valid")
+        errorPass.classList.add("d-none")
+    }
+    else{
+        password.classList.remove("is-valid")
+        password.classList.add("is-invalid")
+        errorPass.classList.remove("d-none")
+    }
+
+    if(confirmPass.value != password.value){
+        confirmPass.classList.remove("is-invalid")
+        confirmPass.classList.add("is-valid")
+        errorConfirmPass.classList.remove("d-none")
+    }
+    else{
+        confirmPass.classList.remove("is-valid")
+        confirmPass.classList.add("is-invalid")
+        errorConfirmPass.classList.add("d-none")
+    }
+}
+
+const validateEmail = (email) => {
+  return email.match(
+    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  );
+};
+
+function signInValidation(){
+    let signinForm = document.getElementById("formSignIn")
+    let username = document.getElementById("usernameSignIn")
+    let password = document.getElementById("passwordSignIn")
+    let errorUser = document.getElementById("errorUsernameSignIn")
+    let errorPass = document.getElementById("errorPasswordSignIn")
+
+
+    if(username.value == "admin"){
+        username.classList.remove("is-invalid")
+        username.classList.add("is-valid")
+        errorUser.classList.add("d-none")
+    }
+    else{
+        username.classList.remove("is-valid")
+        username.classList.add("is-invalid")
+        errorUser.classList.remove("d-none")
+    }
+
+    if(password.value == "admin"){
+        password.classList.remove("is-invalid")
+        password.classList.add("is-valid")
+        errorPass.classList.add("d-none")
+    }
+    else{
+        password.classList.remove("is-valid")
+        password.classList.add("is-invalid")
+        errorPass.classList.remove("d-none")
+    }
+}
+
 function seePassword(){
-    let senha = document.getElementById("password")
+    let senha = document.getElementById("passwordSignIn")
     let icon = document.getElementById("togglePassword")
-    console.log(icon.classList)
+    
     if(senha.getAttribute("type") == "password"){
         senha.type = "text"
         icon.classList.remove("fa-eye-slash")

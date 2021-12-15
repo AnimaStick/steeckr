@@ -29,35 +29,40 @@
        </div>
    </div>
     
-
-    <div class="container-fluid w-25 bg-light p-5 rounded text-dark " id="formSignIn">
-        <form class="form-signin">
+    <!-- Form de Login -->
+    <div class="container-fluid w-25 bg-light p-5 rounded text-dark " id="divSignIn">
+        <form class="form-signin" id="formSignIn" onsubmit="signInValidation();return false" method="post">
           <div class="row">
-            
             <div class="text-center col-sm-12">
               <img class="mb-4 " src="../images/LogoBS.png" alt="" width="72" height="72">
             </div>
           </div>
 
+          <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+
+          <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+              <input class="form-control" id="usernameSignIn" name="username" placeholder="Username" value="">
+          </div>
+          <div class="d-none mb-2 text-danger" id="errorUsernameSignIn">
+            Usuário Inválido
+          </div>
+
+          <div class="input-group mt-3">
+              <span class="input-group-text"><i class="fas fa-lock"></i></span>
+              <input class="form-control" type="password" id="passwordSignIn" name="password" placeholder="Password" value="">
+              <span class="input-group-text">
+                <i class="fas fa-eye-slash" id="togglePassword" 
+                style="cursor: pointer" onclick="seePassword()"></i>
+                </span>
+          </div>
+          <div class="d-none text-danger" id="errorPasswordSignIn">
+            Senha Inválida
+          </div>
           
+          <button class="btn btn-lg btn-primary btn-block mt-5" type="submit" >Logar</button>
           
-            
-            <h1 class="h3 mb-3 font-weight-normal">Login</h1>
-            <div class="input-group mb-3">
-                <span class="input-group-text"><i class="fas fa-user"></i></span>
-                <input class="form-control" id="username" name="username" placeholder="Username" value="">
-            </div>
-            <div class="input-group mb-3">
-                <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                <input class="form-control" type="password" id="password" name="password" placeholder="Password" value="">
-                <span class="input-group-text">
-                  <i class="fas fa-eye-slash" id="togglePassword" 
-                 style="cursor: pointer" onclick="seePassword(this)"></i>
-                 </span>
-            </div>
-           
-            <button class="btn btn-lg btn-primary btn-block mt-2" type="submit">Logar</button>
-            <p class="mt-5 mb-3 text-muted text-center"> © 2021-2022 Steeckr </p>
+          <p class="mt-5 mb-3 text-muted text-center"> © 2021-2022 Steeckr </p>
         </form>
     </div>
    
