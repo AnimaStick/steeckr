@@ -5,7 +5,7 @@
   padding: 0px;
   list-style: none;
   text-decoration: none;
-  box-sizing: border-box;
+  box-sizing: border-box ;
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -154,6 +154,10 @@ body{
   transition: all 0.3s ease;
 }
 
+ul{
+  padding: 0;
+  margin: 0;
+}
 .menu_item a{
   display: block;
   padding: 20px;
@@ -213,6 +217,10 @@ body{
   left: 0;
   /*border: 2px solid #fff;*/
   z-index: 2;
+}
+
+.form_popup a{
+  text-decoration: underline !important;
 }
 
 .ilustration{
@@ -328,7 +336,7 @@ body{
   .wrapper .main_container{
     width: auto;
     margin: 0;
-    padding: 55px 10px 0 10px;
+    padding: 10px 10px 0 10px;
   }
 
   .wrapper .sidebar{
@@ -403,4 +411,12 @@ body{
   .ilustration{
     display: none;
   }
+}
+
+.border-3 {
+  border-width:3px !important;
+}
+
+a{
+  text-decoration: none;
 }
