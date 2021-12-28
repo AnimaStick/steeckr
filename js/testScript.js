@@ -47,17 +47,83 @@ $(document).scroll(function() {
 });
 
 window.addEventListener('resize', function(event){
-    resizeStuff()
+    let path = window.location.pathname;
+    let page = path.split("/").pop();
+    let name = page.split(".")[0];
+    
+    switch (name) {
+        case "testIndex":
+            resizeIndex();
+            break;
+        case "signIn":
+        case "signUp":
+            resizeSign()
+            break;
+        default:
+            break;
+    }
 });
 
-function resizeStuff() {
+function resizeIndex() {
+    var w = window.innerWidth
+    var h = window.innerHeight
+
+    let img = document.getElementById('imgForm')
+    let form = document.getElementById('formPopup')
+   
+    //Tira logo
+    if(w< 900){
+        img.classList.remove("d-block")
+        img.classList.add("d-none")
+    }
+    else{
+        img.classList.remove("d-none")
+        img.classList.add("d-block")
+    }
+
+    //Aumenta a div
+    if(w < 520){
+        form.classList.remove("col-sm-5")
+        form.classList.remove("col-md-10")
+        form.classList.remove("col-md-7")
+        form.classList.remove("offset-md-2")
+    }
+    else if(w < 900){
+        form.classList.remove("col-sm-5")
+        form.classList.remove("col-md-7")
+        form.classList.add("col-md-10")
+        form.classList.add("offset-md-2")
+    }
+    else if(w < 1000){
+        form.classList.remove("offset-md-2")
+        form.classList.remove("col-md-10")
+        form.classList.remove("col-sm-5")
+        form.classList.add("col-md-7")
+        
+        img.classList.add("offset-md-2")
+        img.classList.remove("offset-md-4")
+    }
+    else{
+        form.classList.remove("offset-md-2")
+        form.classList.remove("col-md-10")
+        form.classList.remove("col-md-7")
+        form.classList.add("col-sm-5")
+        
+
+        img.classList.remove("offset-md-2")
+        img.classList.add("offset-md-4")
+    }
+   
+}
+
+function resizeSign() {
     var w = window.innerWidth
     var h = window.innerHeight
 
     let formsign = document.getElementById('divSignIn')
     let logosign = document.getElementById('logoSignIn')
     //Tira logo
-    if(w< 770){
+    if(w < 980){
         logosign.classList.remove("d-block")
         logosign.classList.add("d-none")
     }
@@ -73,7 +139,7 @@ function resizeStuff() {
         formsign.classList.remove("w-50")
         
     }
-    else if(w < 560){
+    else if(w < 980){
         formsign.classList.remove("w-25")
         formsign.classList.remove("w-50")
         formsign.classList.add("w-75")
@@ -90,7 +156,6 @@ function resizeStuff() {
     }
    
 }
-
 //Muda o estado do objeto no menu lateral
 function changeSize(menuItem) {
     menuItem.classList.toggle("extended");
