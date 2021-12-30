@@ -15,6 +15,9 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         <script src="../js/testScript.js"></script>
 
+        <!-- Axios -->
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
         <!-- Titulo + Icone -->
         <link rel="shortcut icon" type="image/x-icon" href="../images/LogoWS.png" />
         <title>Steeckr</title>
@@ -40,14 +43,6 @@
 
             <h1 class="h3 mb-3 font-weight-normal">Registrar-se</h1>
 
-            <div class="input-group">
-                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                <input class="form-control" id="emailSignUp" name="email" placeholder="Digite seu email" value="">
-            </div>
-            <div class="d-none mb-2 text-danger" id="errorEmailSignUp">
-                Email Inválido
-            </div>
-
             <div class="input-group mt-3">
                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                 <input class="form-control" id="usernameSignUp" name="username" placeholder="Digite seu username" value="">
@@ -57,11 +52,34 @@
             </div>
 
             <div class="input-group mt-3">
+                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                <input class="form-control" id="emailSignUp" name="email" placeholder="Digite seu email" value="">
+            </div>
+            <div class="d-none mb-2 text-danger" id="errorEmailSignUp">
+                Email Inválido
+            </div>
+
+            <div class="input-group mt-3">     
+                <div class="input-group date" data-date-format="dd/mm/yyyy">
+                    <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                    <input  type="text" class="form-control" id="birthDateSignUp" name="birthDate" placeholder="dd/mm/yyyy">
+                    <div class="input-group-addon" >
+                        
+                    </div>
+                </div>
+            </div>
+             
+            <div class="d-none mb-2 text-danger" id="errorBirthDateSignUp">
+                Data Inválida
+            </div>
+
+
+            <div class="input-group mt-3">
                 <span class="input-group-text"><i class="fas fa-lock"></i></span>
                 <input class="form-control" type="password" id="passwordSignUp" name="password" placeholder="Senha" value="">
                 <span class="input-group-text">
                     <i class="fas fa-eye-slash" id="togglePassword" 
-                    style="cursor: pointer" onclick="seePassword()"></i>
+                    style="cursor: pointer" onclick="seePassword(document.getElementById('passwordSignUp').id)"></i>
                 </span> 
             </div>
             <div class="d-none text-danger" id="errorPasswordSignUp">
@@ -73,7 +91,7 @@
                 <input class="form-control" type="password" id="confirmPassSignUp" name="password" placeholder="Confirme a Senha" value="">
                 <span class="input-group-text">
                     <i class="fas fa-eye-slash" id="togglePassword" 
-                    style="cursor: pointer" onclick="seePassword()"></i>
+                    style="cursor: pointer" onclick="seePassword(document.getElementById('confirmPassSignUp').id)"></i>
                 </span> 
             </div>
             <div class="d-none text-danger" id="errorConfirmPassSignUp">
@@ -87,7 +105,10 @@
     </div>
    
 
-
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.min.js'></script>
+    <script>
+        $('.input-group.date').datepicker({format: "dd/mm/yyyy"});
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
   </body>
 </html>

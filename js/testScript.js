@@ -167,26 +167,49 @@ function showMenu() {
     else e.style.visibility = `collapse`
 }
 
+//Validação de registro
+
 function signUpValidation(){
     let signinForm = document.getElementById("formSignUp")
+    let flag = false
 
+    let date = document.getElementById("birthDateSignUp")
     let email = document.getElementById("emailSignUp")
     let username = document.getElementById("usernameSignUp")
     let password = document.getElementById("passwordSignUp")
     let confirmPass = document.getElementById("confirmPassSignUp")
 
+    let errorDate = document.getElementById("errorBirthDateSignUp")
     let errorEmail = document.getElementById("errorEmailSignUp")
     let errorUser = document.getElementById("errorUsernameSignUp")
     let errorPass = document.getElementById("errorPasswordSignUp")
     let errorConfirmPass = document.getElementById("errorConfirmPassSignUp")
 
-    // console.log(validateEmail(email.value))
+    if(validateDate(date.value)){
+        date.classList.remove("is-invalid")
+        date.classList.add("is-valid")
+        errorDate.classList.add("d-none")
+    }
+    else{
+        date.classList.remove("is-valid")
+        date.classList.add("is-invalid")
+        errorDate.classList.remove("d-none")
+        error= true
+    }
 
-    // if(validateEmail(email.value)){
+    if(validateEmail(email.value) != null){
+        email.classList.remove("is-invalid")
+        email.classList.add("is-valid")
+        errorEmail.classList.add("d-none")
+    }
+    else{
+        email.classList.remove("is-valid")
+        email.classList.add("is-invalid")
+        errorEmail.classList.remove("d-none")
+        error= true
+    }
 
-    // }
-
-    if(username.value != "admin"){
+    if(username.value != "admin" && username.value.length > 2){
         username.classList.remove("is-invalid")
         username.classList.add("is-valid")
         errorUser.classList.add("d-none")
@@ -195,6 +218,7 @@ function signUpValidation(){
         username.classList.remove("is-valid")
         username.classList.add("is-invalid")
         errorUser.classList.remove("d-none")
+        error= true
     }
 
     if(password.value.length > 8){
@@ -206,6 +230,7 @@ function signUpValidation(){
         password.classList.remove("is-valid")
         password.classList.add("is-invalid")
         errorPass.classList.remove("d-none")
+        error= true
     }
 
     if(confirmPass.value != password.value){
@@ -217,14 +242,60 @@ function signUpValidation(){
         confirmPass.classList.remove("is-valid")
         confirmPass.classList.add("is-invalid")
         errorConfirmPass.classList.add("d-none")
+        error= true
     }
 }
+
 
 const validateEmail = (email) => {
   return email.match(
     /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   );
 };
+
+const validateDate = (date) =>{
+    let splitedDate = date.split("/")
+    let day = splitedDate[0]
+    let month = splitedDate[1]
+    let year = splitedDate[2]
+    let currentYear =  new Date().getFullYear();
+
+    if(year > currentYear - 10 || year < currentYear - 150)
+        return false
+    else if(month < 1 || month > 12)
+        return false
+    else 
+        return checkDay(day,month,year)
+};
+
+const checkDay = (day,month,year) => {
+    if(month == 2){
+        if(year % 4 != 0 && day > 28 )
+            return false
+        else if(year % 4 != 0 && day > 29)
+            return false
+        else
+            return true
+    }
+    else if(month < 8){
+        if(month % 2 != 0 && day > 31)
+            return false
+        else if (month % 2 == 0 && day > 30)
+            return false
+        else
+            return true
+    } 
+    else{
+        if(month % 2 != 0 && day > 30)
+            return false
+        else if (month % 2 == 0 && day > 31)
+            return false
+        else
+            return true
+    }
+};
+
+//Validação do login
 
 function signInValidation(){
     let signinForm = document.getElementById("formSignIn")
@@ -257,8 +328,11 @@ function signInValidation(){
     }
 }
 
-function seePassword(){
-    let senha = document.getElementById("passwordSignIn")
+function seePassword(id){
+
+   
+
+    let senha = document.getElementById(id)
     let icon = document.getElementById("togglePassword")
     
     if(senha.getAttribute("type") == "password"){
