@@ -1,3 +1,7 @@
+/////////////////////// ESTILO DO SITE
+
+
+
 //Muda o estado do menu lateral
 $(document).ready(function(){
     $(".search_button").click(function(){
@@ -12,14 +16,14 @@ $(document).ready(function(){
     });
 });
 
+//Popup de login ao scrollar na ghome
 $(document).scroll(function() {
     try {
         var y = $(this).scrollTop();
         const form_popup = document.getElementsByClassName('form_popup')[0]
         const imgLog = document.getElementById('imgForm')
-        let sizeY = $(window).height();
         let sizeX = $(window).width();
-        // resizeStuff()
+
         if (y > 200) {
             if(sizeX < 800){
                 imgLog.style.display = "none"
@@ -46,6 +50,44 @@ $(document).scroll(function() {
     }
 });
 
+//Muda o conteudo da pagina
+function showContent (elmnt) {
+
+    //Parte para escolher qual conteudo sera exibido e qual sera removido
+    var cl = elmnt.getAttribute("class").split(" ")
+    cl = cl[1] + "Content.html"
+    
+
+    //Parte que remove o anterior
+    try {
+        document.getElementById("include_wrapper").remove()
+        document.getElementById("include_style").remove()
+        document.getElementsByTagName("script")[3].remove()
+    } catch(npe){
+       console.log("alou")
+    }
+
+    //Parte onde a magica acontece
+    function a(a, b) {
+        var c = /^(?:file):/,
+        d = new XMLHttpRequest,
+        e = 0;
+        d.onreadystatechange = function() {
+            4 == d.readyState && (e = d.status),
+            c.test(location.href) && d.responseText && (e = 200),
+            4 == d.readyState && 200 == e && (a.outerHTML = d.responseText)
+        };
+        try {
+            d.open("GET", b, !0),
+            d.send() 
+        } catch(f) {}
+    }
+    var b,
+    c = document.getElementsByTagName("*");
+    for(b in c) c[b].hasAttribute && c[b].hasAttribute("data-include") && c[b].getAttribute("data-include") == cl && a(c[b], c[b].getAttribute("data-include"))
+};
+
+//Função para chamar o resize corresponde quando a janela é mudada de tamanho
 window.addEventListener('resize', function(event){
     let path = window.location.pathname;
     let page = path.split("/").pop();
@@ -66,7 +108,6 @@ window.addEventListener('resize', function(event){
 
 function resizeIndex() {
     var w = window.innerWidth
-    var h = window.innerHeight
 
     let img = document.getElementById('imgForm')
     let form = document.getElementById('formPopup')
@@ -113,12 +154,10 @@ function resizeIndex() {
         img.classList.remove("offset-md-2")
         img.classList.add("offset-md-4")
     }
-   
 }
 
 function resizeSign() {
     var w = window.innerWidth
-    var h = window.innerHeight
 
     let formsign = document.getElementById('divSignIn')
     let logosign = document.getElementById('logoSignIn')
@@ -156,6 +195,7 @@ function resizeSign() {
     }
    
 }
+
 //Muda o estado do objeto no menu lateral
 function changeSize(menuItem) {
     menuItem.classList.toggle("extended");
@@ -167,8 +207,34 @@ function showMenu() {
     else e.style.visibility = `collapse`
 }
 
-//Validação de registro
+//Previne o redirecionamento ao submitar um form
+window.addEventListener('submit', function(event) {
+    event.preventDefault();
+})
 
+function seePassword(id){
+    let senha = document.getElementById(id)
+    let icon = document.getElementById("togglePassword")
+    
+    if(senha.getAttribute("type") == "password"){
+        senha.type = "text"
+        icon.classList.remove("fa-eye-slash")
+        icon.classList.add("fa-eye")
+    }
+    else{
+        senha.type = "password"
+        icon.classList.remove("fa-eye")
+        icon.classList.add("fa-eye-slash")
+    }
+}
+
+
+/////////////////////// ESTILO DO SITE
+
+
+/////////////////////// LÓGICA DO SITE
+
+//Validação de registro
 function signUpValidation(){
     let signinForm = document.getElementById("formSignUp")
     let flag = false
@@ -244,6 +310,8 @@ function signUpValidation(){
         errorConfirmPass.classList.add("d-none")
         error= true
     }
+
+    return error
 }
 
 
@@ -296,90 +364,40 @@ const checkDay = (day,month,year) => {
 };
 
 //Validação do login
-
 function signInValidation(){
     let signinForm = document.getElementById("formSignIn")
     let username = document.getElementById("usernameSignIn")
     let password = document.getElementById("passwordSignIn")
-    let errorUser = document.getElementById("errorUsernameSignIn")
-    let errorPass = document.getElementById("errorPasswordSignIn")
-
-
-    if(username.value == "admin"){
+    let errorLogin = document.getElementById("errorLoginSignIn")
+ 
+    if(checkLogin(username.value,password.value)){
         username.classList.remove("is-invalid")
         username.classList.add("is-valid")
-        errorUser.classList.add("d-none")
+        errorLogin.classList.add("d-none")
     }
     else{
         username.classList.remove("is-valid")
         username.classList.add("is-invalid")
-        errorUser.classList.remove("d-none")
-    }
-
-    if(password.value == "admin"){
-        password.classList.remove("is-invalid")
-        password.classList.add("is-valid")
-        errorPass.classList.add("d-none")
-    }
-    else{
-        password.classList.remove("is-valid")
-        password.classList.add("is-invalid")
-        errorPass.classList.remove("d-none")
+        errorLogin.classList.remove("d-none")
     }
 }
 
-function seePassword(id){
-
-   
-
-    let senha = document.getElementById(id)
-    let icon = document.getElementById("togglePassword")
-    
-    if(senha.getAttribute("type") == "password"){
-        senha.type = "text"
-        icon.classList.remove("fa-eye-slash")
-        icon.classList.add("fa-eye")
-    }
-    else{
-        senha.type = "password"
-        icon.classList.remove("fa-eye")
-        icon.classList.add("fa-eye-slash")
-    }
-}
-
-//Muda o conteudo da pagina
-function showContent (elmnt) {
-
-    //Parte para escolher qual conteudo sera exibido e qual sera removido
-    var cl = elmnt.getAttribute("class").split(" ")
-    cl = cl[1] + "Content.html"
-    
-
-    //Parte que remove o anterior
-    try {
-        document.getElementById("include_wrapper").remove()
-        document.getElementById("include_style").remove()
-        document.getElementsByTagName("script")[3].remove()
-    } catch(npe){
-        console.log("alou")
+const checkLogin = (user,pass) =>{
+    if(user == "" || pass == ""){
+        return false;
     }
 
-    //Parte onde a magica acontece
-    function a(a, b) {
-        var c = /^(?:file):/,
-        d = new XMLHttpRequest,
-        e = 0;
-        d.onreadystatechange = function() {
-            4 == d.readyState && (e = d.status),
-            c.test(location.href) && d.responseText && (e = 200),
-            4 == d.readyState && 200 == e && (a.outerHTML = d.responseText)
-        };
-        try {
-            d.open("GET", b, !0),
-            d.send() 
-        } catch(f) {}
-    }
-    var b,
-    c = document.getElementsByTagName("*");
-    for(b in c) c[b].hasAttribute && c[b].hasAttribute("data-include") && c[b].getAttribute("data-include") == cl && a(c[b], c[b].getAttribute("data-include"))
+
+    // let jsonLogin = {
+    //     "username" : user,
+    //     "password" : pass
+    // }
+
+    // axios.post("/login",jsonLogin)
+    //     .then(response => {
+    //         console.log(response)
+    //     })
+    return true;
 };
+
+/////////////////////// LÓGICA DO SITE

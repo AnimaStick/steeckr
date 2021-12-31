@@ -44,10 +44,7 @@
               <span class="input-group-text"><i class="fas fa-user"></i></span>
               <input class="form-control" id="usernameSignIn" name="username" placeholder="Username" value="">
           </div>
-          <div class="d-none mb-2 text-danger" id="errorUsernameSignIn">
-            Usuário Inválido
-          </div>
-
+         
           <div class="input-group mt-3">
               <span class="input-group-text"><i class="fas fa-lock"></i></span>
               <input class="form-control" type="password" id="passwordSignIn" name="password" placeholder="Password" value="">
@@ -56,8 +53,8 @@
                 style="cursor: pointer" onclick="seePassword(document.getElementById('passwordSignIn').id)"></i>
                 </span>
           </div>
-          <div class="d-none text-danger" id="errorPasswordSignIn">
-            Senha Inválida
+          <div class="d-none text-danger" id="errorLoginSignIn">
+            Usuário inexistente ou/e Senha inválida
           </div>
           
           <div class="form-group mt-3">
@@ -70,7 +67,7 @@
     </div>
    
 
-
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
   </body>
 </html>
