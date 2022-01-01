@@ -1,1 +1,1 @@
-live-server --https=https-front.js
+live-server https-front.js

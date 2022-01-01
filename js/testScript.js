@@ -1,6 +1,7 @@
+
+
+
 /////////////////////// ESTILO DO SITE
-
-
 
 //Muda o estado do menu lateral
 $(document).ready(function(){
@@ -234,10 +235,14 @@ function seePassword(id){
 
 /////////////////////// LÓGICA DO SITE
 
+const axi = axios.create({
+    baseURL: 'https://localhost:3004'
+});
+
 //Validação de registro
 function signUpValidation(){
-    let signinForm = document.getElementById("formSignUp")
-    let flag = false
+    
+    let error = false
 
     let date = document.getElementById("birthDateSignUp")
     let email = document.getElementById("emailSignUp")
@@ -383,20 +388,21 @@ function signInValidation(){
 }
 
 const checkLogin = (user,pass) =>{
-    if(user == "" || pass == ""){
+
+    if(user == "" || pass == ""){   
         return false;
     }
+  
 
-
-    // let jsonLogin = {
-    //     "username" : user,
-    //     "password" : pass
-    // }
-
-    // axios.post("/login",jsonLogin)
-    //     .then(response => {
-    //         console.log(response)
-    //     })
+    let jsonLogin = {
+        "username" : user,
+        "password" : pass
+    }
+    console.log(jsonLogin)
+    axi.post("/login",jsonLogin)
+        .then(response => {
+            console.log(response)
+        })
     return true;
 };
 
