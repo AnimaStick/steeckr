@@ -14,6 +14,7 @@
         <link id="indexCSS" rel="stylesheet" href="../css/testStyle.css">
     
         <!-- JS -->
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="../js/testScript.js"></script>
@@ -83,28 +84,26 @@
                 </ul>
                 
                 <!-- Lista inferior -->
-                <ul class="bottom_list">
+                <!-- <ul class="bottom_list">
                     <li class="menu_item configs" onmouseover="changeSize(this)" onmouseout="changeSize(this)" onclick="showContent(this)"><a href="#">
                         <span class="icon"><i class="fas fa-cog"></i></span>
                         <span class="title">Configs</span>
                     </a></li>
-                </ul>
+                </ul> -->
 
             </div>
 
             <div class="container-fluid mt-5 ">
                 <!-- container do login de popup -->
-                <div class="form_popup w-75 mt-5 align-middle" id="myForm">
-                    <div class="row mt-5 h-50">
+                <div class="form_popup w-75 mt-5 align-middle" id="myForm" onload="resizeIndex()">
+                    <div class="row mt-5 h-75">
                         <!-- ilustarção legalzinha -->
-                        <div class="container-fluid bg-dark col-sm-3 offset-md-4  p-0" id="imgForm" >
-                            <img src="https://s2.glbimg.com/2yK3rTPvEDofzpusIhAgrkasz9A=/e.glbimg.com/og/ed/f/original/2019/09/30/oriontree_fairbairn_960.jpg"  class="img-fluid ">
-                        </div>
-                    
-    
+                        <img src="https://s2.glbimg.com/2yK3rTPvEDofzpusIhAgrkasz9A=/e.glbimg.com/og/ed/f/original/2019/09/30/oriontree_fairbairn_960.jpg"  
+                        class=" img-fluid col-sm-3 offset-md-4  p-0" id="imgForm" >
+                        
                         <!-- popup de login -->
-                        <div class="container-fluid col-sm-5 p-0" id="formPopup"  >
-                            <form class="bg-light p-5" id="formSignIn" onsubmit="signInValidation();return false" method="post">
+                        <div class="container-fluid col-sm-5 p-0" id="formPopup" >
+                            <form class="bg-light p-5" id="formSignIn" name="formPopup" onsubmit="signInValidation();return false" method="post">
                                 <h1 class="h3 mb-3 font-weight-normal">Login</h1>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
@@ -150,7 +149,7 @@
             <div data-include="albumContent.html"></div>
 
             <!-- Conteudo da configs -->
-            <div data-include="configsContent.html"></div>
+            <!-- <div data-include="configsContent.html"></div> -->
             
         </div>
     </body>

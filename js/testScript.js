@@ -33,6 +33,7 @@ $(document).scroll(function() {
                 imgLog.style.display = "block"
             }
             form_popup.style.display = "block"
+            resizeIndex()
         } else {
             form_popup.style.display = "none"
         }
@@ -107,34 +108,61 @@ window.addEventListener('resize', function(event){
     }
 });
 
+window.addEventListener('load', function(event){
+    let path = window.location.pathname;
+    let page = path.split("/").pop();
+    let name = page.split(".")[0];
+    
+    switch (name) {
+        case "testIndex":
+            resizeIndex();
+            break;
+        case "signIn":
+        case "signUp":
+            resizeSign()
+            break;
+        default:
+            break;
+    }
+});
+
 function resizeIndex() {
     var w = window.innerWidth
 
     let img = document.getElementById('imgForm')
     let form = document.getElementById('formPopup')
+    let formWithin = document.getElementById('formSignIn')
    
+    let hform = form.offsetHeight
+
     //Tira logo
-    if(w< 900){
+    if(w< 1000){
         img.classList.remove("d-block")
         img.classList.add("d-none")
+
+        formWithin.style.height = "330px"
     }
     else{
         img.classList.remove("d-none")
         img.classList.add("d-block")
+        formWithin.style.height = hform+"px"
     }
-
+    console.log(w)
     //Aumenta a div
     if(w < 520){
         form.classList.remove("col-sm-5")
         form.classList.remove("col-md-10")
         form.classList.remove("col-md-7")
-        form.classList.remove("offset-md-2")
+       
+        formWithin.style.height = "330px"
     }
     else if(w < 900){
         form.classList.remove("col-sm-5")
         form.classList.remove("col-md-7")
         form.classList.add("col-md-10")
         form.classList.add("offset-md-2")
+
+        formWithin.style.height = "330px"
     }
     else if(w < 1000){
         form.classList.remove("offset-md-2")
@@ -144,6 +172,11 @@ function resizeIndex() {
         
         img.classList.add("offset-md-2")
         img.classList.remove("offset-md-4")
+
+        formWithin.style.height = "330px"
+    }
+    else if(w < 1200){
+        formWithin.style.height = "330px"
     }
     else{
         form.classList.remove("offset-md-2")
@@ -154,10 +187,15 @@ function resizeIndex() {
 
         img.classList.remove("offset-md-2")
         img.classList.add("offset-md-4")
+
+        formWithin.style.height = hform+"px"
     }
+
+    
 }
 
 function resizeSign() {
+
     var w = window.innerWidth
 
     let formsign = document.getElementById('divSignIn')
@@ -228,6 +266,7 @@ function seePassword(id){
         icon.classList.add("fa-eye-slash")
     }
 }
+
 
 
 /////////////////////// ESTILO DO SITE
@@ -332,6 +371,9 @@ const validateDate = (date) =>{
     let month = splitedDate[1]
     let year = splitedDate[2]
     let currentYear =  new Date().getFullYear();
+
+    if(date == null || date == "")
+        return false
 
     if(year > currentYear - 10 || year < currentYear - 150)
         return false
