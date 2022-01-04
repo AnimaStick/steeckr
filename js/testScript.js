@@ -96,7 +96,7 @@ window.addEventListener('resize', function(event){
     let name = page.split(".")[0];
     
     switch (name) {
-        case "testIndex":
+        case "index":
             resizeIndex();
             break;
         case "signIn":
@@ -114,7 +114,7 @@ window.addEventListener('load', function(event){
     let name = page.split(".")[0];
     
     switch (name) {
-        case "testIndex":
+        case "index":
             resizeIndex();
             break;
         case "signIn":
@@ -275,7 +275,7 @@ function seePassword(id){
 /////////////////////// LÓGICA DO SITE
 
 const axi = axios.create({
-    baseURL: 'https://localhost:3004'
+    baseURL: 'http://localhost:3004'
 });
 
 //Validação de registro
@@ -440,7 +440,7 @@ const checkLogin = (user,pass) =>{
         "username" : user,
         "password" : pass
     }
-    console.log(jsonLogin)
+    
     axi.post("/login",jsonLogin)
         .then(response => {
             console.log(response)
