@@ -3,27 +3,31 @@
 
 /////////////////////// ESTILO DO SITE
 
-//Muda o estado do menu lateral
+
+//Muda o estado do menu lateral 
 $(document).ready(function(){
     $(".search_button").click(function(){
-       $(".search_bar_div").toggleClass("m");
-    });
+       $(".search_bar_div").toggleClass("m")
+    })
     $(".top_navbar .top_menu .search_bar_div a").click(function(){
-        $(".search_bar_div").toggleClass("m");
-    });
+        $(".search_bar_div").toggleClass("m")
+    })
     $('.menu_item').click(function(){
-        $('.menu_item').removeClass('active_item');
-        $(this).addClass('active_item');
-    });
-});
+        $('.menu_item').removeClass('active_item')
+        $(this).addClass('active_item')
+    })
+    const home = document.getElementsByClassName('menu_item')[0]
+    showContent(home)
+    home.addClass('active_item')
+})
 
 //Popup de login ao scrollar na ghome
 $(document).scroll(function() {
     try {
-        var y = $(this).scrollTop();
+        var y = $(this).scrollTop()
         const form_popup = document.getElementsByClassName('form_popup')[0]
         const imgLog = document.getElementById('imgForm')
-        let sizeX = $(window).width();
+        let sizeX = $(window).width()
 
         if (y > 200) {
             if(sizeX < 800){
@@ -41,11 +45,13 @@ $(document).scroll(function() {
                 $('.top_navbar').addClass("blur")
                 $('.sidebar').addClass("blur")
                 $('.main_container').addClass("blur")
+                $('#nav_display').addClass("blur")
             
         } else {
                 $('.top_navbar').removeClass("blur")
                 $('.sidebar').removeClass("blur")
                 $('.main_container').removeClass("blur")
+                $('#nav_display').removeClass("blur")
         }
     } catch (err) {
         console.log("oie");
