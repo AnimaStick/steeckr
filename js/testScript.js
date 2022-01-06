@@ -87,6 +87,7 @@ function showContent (elmnt) {
     var b,
     c = document.getElementsByTagName("*");
     for(b in c) c[b].hasAttribute && c[b].hasAttribute("data-include") && c[b].getAttribute("data-include") == cl && a(c[b], c[b].getAttribute("data-include"))
+    getStickers()
 };
 
 //Função para chamar o resize corresponde quando a janela é mudada de tamanho
@@ -415,6 +416,28 @@ const checkDay = (day,month,year) => {
             return true
     }
 };
+
+//show feed
+const url = "http://localhost:3004/stickers"
+
+function getStickers() {
+    axios.get(url).then(response => {
+        const data = response.data
+        //renderResults.textContent = JSON.stringify(data)
+        for (let prop in data) {
+            var o = JSON.parse(JSON.stringify(data[prop]))
+            renderResults.innerHTML += `<img src="${o.animation_path}" height="200px" id="steste" class="sticker">"`
+/*             var obj = JSON.parse(JSON.stringify(data[prop]))
+            console.log(obj.animation_path) */
+        }
+    }).catch(error => console.error(error))
+}
+
+//convert stickers json to imgs
+
+function generateImg(path) {
+    $('#steste').getAttribute("src") = path;
+}
 
 //Validação do login
 function signInValidation(){
