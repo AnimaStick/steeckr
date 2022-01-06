@@ -275,7 +275,8 @@ function seePassword(id){
 /////////////////////// LÓGICA DO SITE
 
 const axi = axios.create({
-    baseURL: 'http://localhost:3004'
+    baseURL: 'http://localhost:3004',
+    withCredentials: true
 });
 
 //Validação de registro
@@ -430,20 +431,25 @@ function signInValidation(){
 }
 
 const checkLogin = (user,pass) =>{
-
-    if(user == "" || pass == ""){   
+       if(user == "" || pass == ""){   
         return false;
     }
   
 
     let jsonLogin = {
-        "username" : user,
+        "email" : user,
         "password" : pass
     }
-    
+       
     axi.post("/login",jsonLogin)
         .then(response => {
-            console.log(response)
+            if(response.status == 200){
+                axi.get("/auth").then(resposta => {
+                    console.log(resposta)
+                })
+            }
+        }).catch(e => {
+            console.log(e)
         })
     return true;
 };
