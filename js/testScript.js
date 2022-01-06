@@ -289,6 +289,9 @@ function signUpValidation(){
     let username = document.getElementById("usernameSignUp")
     let password = document.getElementById("passwordSignUp")
     let confirmPass = document.getElementById("confirmPassSignUp")
+    let description = document.getElementById("descriptionSignUp")
+    let profilePic = document.getElementById("profilePicSignUp")
+    
 
     let errorDate = document.getElementById("errorBirthDateSignUp")
     let errorEmail = document.getElementById("errorEmailSignUp")
@@ -344,7 +347,7 @@ function signUpValidation(){
         error= true
     }
 
-    if(confirmPass.value != password.value){
+    if(confirmPass.value == password.value){
         confirmPass.classList.remove("is-invalid")
         confirmPass.classList.add("is-valid")
         errorConfirmPass.classList.remove("d-none")
@@ -356,7 +359,9 @@ function signUpValidation(){
         error= true
     }
 
-    return error
+    if(!error){
+        checkSignUp(username.value, email.value, password.value, date.value,description.value,profilePic.value)
+    }
 }
 
 
@@ -454,4 +459,23 @@ const checkLogin = (user,pass) =>{
     return true;
 };
 
+function checkSignUp(user, email, pass, birth, desc, profPic) {
+    var bodyFD = new FormData()
+
+    bodyFD.append("username",user)
+    bodyFD.append("email",email)
+    bodyFD.append("password",pass)
+    bodyFD.append("birthday",birth)
+    bodyFD.append("description",desc)
+    bodyFD.append("profilePic",profPic)
+
+    axi.post("/users",bodyFD, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+    }).then(response => {
+        console.log(response)
+    })
+
+}
 /////////////////////// LÓGICA DO SITE

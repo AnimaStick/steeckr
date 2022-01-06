@@ -36,7 +36,7 @@
     
     <!-- Form de Login -->
     <div class="container-fluid w-25 bg-light p-5 rounded text-dark " id="divSignIn">
-        <form class="form-signin" id="formSignIn" onsubmit="signUpValidation();return false" method="post">
+        <form class="form-signin" id="formSignIn" onsubmit="checkSignUp();return false" method="post">
             <div class="row">
                 <div class="text-center col-sm-12">
                     <img class="mb-4 " src="../images/LogoBS.png" alt="" width="72" height="72">
@@ -47,7 +47,7 @@
 
             <div class="input-group mt-3">
                 <span class="input-group-text"><i class="fas fa-user"></i></span>
-                <input class="form-control" id="usernameSignUp" name="username" placeholder="Digite seu username" value="">
+                <input class="form-control" id="usernameSignUp" name="username" placeholder="Digite seu username" maxlength="30" value="">
             </div>
             <div class="d-none mb-2 text-danger" id="errorUsernameSignUp">
                 Usuário Inválido
@@ -55,7 +55,7 @@
 
             <div class="input-group mt-3">
                 <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                <input class="form-control" id="emailSignUp" name="email" placeholder="Digite seu email" value="">
+                <input class="form-control" id="emailSignUp" name="email" placeholder="Digite seu email" maxlength="30" value="">
             </div>
             <div class="d-none mb-2 text-danger" id="errorEmailSignUp">
                 Email Inválido
@@ -74,7 +74,6 @@
             <div class="d-none mb-2 text-danger" id="errorBirthDateSignUp">
                 Data Inválida
             </div>
-
 
             <div class="input-group mt-3">
                 <span class="input-group-text"><i class="fas fa-lock"></i></span>
@@ -100,7 +99,22 @@
                 Senhas Não Correspondentes
             </div>
 
-            <button class="btn btn-lg btn-primary btn-block mt-5" type="submit" >Logar</button>
+            <div class="input-group mt-3">
+                <span class="input-group-text"><i class="fas fa-clipboard"></i></span>
+                <textarea class="form-control" id="descriptionSignUp" rows="3" placeholder="Descrição(Opcional)"></textarea>
+            </div>
+
+            <label for="formFile" class="form-label mt-3">Escolha sua foto (Opcional)</label>
+            <div class="input-group mb-2"> 
+                <span class="input-group-text "><i class="fas fa-images"></i></span>
+                <input class="form-control" type="file" id="profilePicSignUp" accept="image/*" >
+            </div>
+
+            <div class="form-group mt-5">
+                <small class="form-text text-muted">Já possui cadastro? <a href="signIn.html">Logue aqui </a></small>
+                
+            </div>
+            <button class="btn btn-lg btn-primary btn-block mt-3" type="submit" >Registrar-se</button>
             
             <p class="mt-5 mb-3 text-muted text-center"> © 2021-2022 Steeckr </p>
         </form>
