@@ -69,6 +69,8 @@ function showContent (elmnt) {
        console.log("alou")
     }
 
+    getStickers()
+
     //Parte onde a magica acontece
     function a(a, b) {
         var c = /^(?:file):/,
@@ -410,6 +412,20 @@ const checkDay = (day,month,year) => {
             return true
     }
 };
+
+//show feed
+const url = "http://localhost:3004/stickers"
+
+function getStickers() {
+    axios.get(url).then(response => {
+        const data = response.data
+        renderResults.textContent = JSON.stringify(data)
+        for (let prop in data) {
+            var obj = JSON.parse(JSON.stringify(data[prop]))
+            console.log(obj.animation_path)
+        }
+    }).catch(error => console.error(error))
+}
 
 //Validação do login
 function signInValidation(){
