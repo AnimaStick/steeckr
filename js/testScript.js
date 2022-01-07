@@ -22,9 +22,9 @@ $(document).ready(function(){
              $('.menu_item').removeClass('active_item')
              $(this).addClass('active_item')
         })
-         const home = document.getElementsByClassName('menu_item')[0]
-         showContent(home)
     }
+    const home = document.getElementsByClassName('menu_item')[0]
+    showContent(home)
    
     //home.addClass('active_item')
 })
