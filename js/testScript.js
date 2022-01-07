@@ -354,7 +354,7 @@ function signUpValidation(){
         error= true
     }
 
-    if(confirmPass.value == password.value){
+    if(confirmPass.value === password.value){
         confirmPass.classList.remove("is-invalid")
         confirmPass.classList.add("is-valid")
         errorConfirmPass.classList.remove("d-none")
@@ -367,7 +367,8 @@ function signUpValidation(){
     }
 
     if(!error){
-        checkSignUp(username.value, email.value, password.value, date.value,description.value,profilePic.value)
+        console.log(profilePic.files);
+        checkSignUp(username.value, email.value, password.value, date.value,description.value,profilePic.files[0])
     }
 }
 
@@ -489,13 +490,17 @@ const checkLogin = (user,pass) =>{
 };
 
 function checkSignUp(user, email, pass, birth, desc, profPic) {
+    let birthdayValues = birth.split("/");
+    let birthdayFormatted = `${birthdayValues[2]}-${birthdayValues[1]}-${birthdayValues[0]}`
+    
     var bodyFD = new FormData()
 
     bodyFD.append("username",user)
     bodyFD.append("email",email)
     bodyFD.append("password",pass)
-    bodyFD.append("birthday",birth)
+    bodyFD.append("birthday",birthdayFormatted)
     bodyFD.append("description",desc)
+    console.log(profPic);
     bodyFD.append("profilePic",profPic)
 
     axi.post("/users",bodyFD, {
@@ -504,6 +509,9 @@ function checkSignUp(user, email, pass, birth, desc, profPic) {
         }
     }).then(response => {
         console.log(response)
+    }).catch(error => {
+        console.log(error);
+        alert(error);
     })
 
 }
