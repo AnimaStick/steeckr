@@ -9,17 +9,19 @@ $(document).ready(function(){
     let path = window.location.pathname;
     let page = path.split("/").pop();
     let name = page.split(".")[0];
+    
     if(name == "index"){
+        console.log(localStorage.id)
         $(".search_button").click(function(){
             $(".search_bar_div").toggleClass("m")
-         })
-         $(".top_navbar .top_menu .search_bar_div a").click(function(){
+        })
+        $(".top_navbar .top_menu .search_bar_div a").click(function(){
              $(".search_bar_div").toggleClass("m")
-         })
-         $('.menu_item').click(function(){
+        })
+        $('.menu_item').click(function(){
              $('.menu_item').removeClass('active_item')
              $(this).addClass('active_item')
-         })
+        })
          const home = document.getElementsByClassName('menu_item')[0]
          showContent(home)
     }
@@ -70,7 +72,6 @@ function showContent (elmnt) {
     //Parte para escolher qual conteudo sera exibido e qual sera removido
     var cl = elmnt.getAttribute("class").split(" ")
     cls = cl[1] + "Content.html"
-    
 
     //Parte que remove o anterior
     try {
@@ -162,7 +163,7 @@ function resizeIndex() {
         img.classList.add("d-block")
         formWithin.style.height = hform+"px"
     }
-    console.log(w)
+    
     //Aumenta a div
     if(w < 520){
         form.classList.remove("col-sm-5")
@@ -205,8 +206,6 @@ function resizeIndex() {
 
         formWithin.style.height = hform+"px"
     }
-
-    
 }
 
 function resizeSign() {
@@ -247,7 +246,6 @@ function resizeSign() {
         formsign.classList.remove("w-50")
         formsign.classList.add("w-25")
     }
-   
 }
 
 //Muda o estado do objeto no menu lateral
@@ -362,21 +360,24 @@ function signUpValidation(){
         error= true
     }
 
-    if(confirmPass.value === password.value){
+    if(confirmPass.value == password.value){
         confirmPass.classList.remove("is-invalid")
         confirmPass.classList.add("is-valid")
-        errorConfirmPass.classList.remove("d-none")
+        errorConfirmPass.classList.add("d-none")
     }
     else{
         confirmPass.classList.remove("is-valid")
         confirmPass.classList.add("is-invalid")
-        errorConfirmPass.classList.add("d-none")
+        errorConfirmPass.classList.remove("d-none")
         error= true
     }
 
     if(!error){
         console.log(profilePic.files);
-        checkSignUp(username.value, email.value, password.value, date.value,description.value,profilePic.files[0])
+        checkSignUp(username.value, email.value, password.value, date.value,description.value,profilePic.files[0]).then(data => {
+            if(data == 201)
+                window.location.replace("index.html")
+        }).catch(e => console.log(e))
     }
 }
 
@@ -455,18 +456,20 @@ function signInValidation(){
     let password = document.getElementById("passwordSignIn")
     let errorLogin = document.getElementById("errorLoginSignIn")
 
-   
-
-    // checkLogin(username.value,password.value).then(data => {
-    //     console.log(data)
-    // })
-
     checkLogin(username.value,password.value).then(res => {
         if(res){
             username.classList.remove("is-invalid")
             username.classList.add("is-valid")
             errorLogin.classList.add("d-none")
-            window.location.replace("index.html");
+            getAuth().then( res =>{
+                window.location.replace("index.html")}
+            )
+             
+        }
+        else{
+            username.classList.remove("is-valid")
+            username.classList.add("is-invalid")
+            errorLogin.classList.remove("d-none")
         }
     }).catch(e => {
         username.classList.remove("is-valid")
@@ -478,8 +481,7 @@ function signInValidation(){
 }
 
 const checkLogin = async (user,pass) =>{
-
-    if(user == "" || pass == ""){   
+    if(user == "" || pass == "" || user == null || pass == null){   
         return false;
     }
 
@@ -494,7 +496,7 @@ const checkLogin = async (user,pass) =>{
     return false
 };
 
-function checkSignUp(user, email, pass, birth, desc, profPic) {
+async function checkSignUp(user, email, pass, birth, desc, profPic) {
     let birthdayValues = birth.split("/");
     let birthdayFormatted = `${birthdayValues[2]}-${birthdayValues[1]}-${birthdayValues[0]}`
     
@@ -508,20 +510,18 @@ function checkSignUp(user, email, pass, birth, desc, profPic) {
     console.log(profPic);
     bodyFD.append("profilePic",profPic)
 
-    axi.post("/users",bodyFD, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-    }).then(response => {
-        console.log(response)
-    }).catch(error => {
-        console.log(error);
-        alert(error);
-    })
+    const res = await axi.post("/users",bodyFD,{headers: {'Content-Type': 'multipart/form-data'}})
+    return res.status
 
 }
 
-function getAuth(){
-    axi.get("/auth").then(res => {console.log(res)}).catch(e=>{console.log(e)})
+async function getUser(){
+    const res = await axi.get("/user/"+id)
+}
+
+
+async function getAuth(){
+    const res = await axi.get("/auth")
+    localStorage.id = res.data.id
 }
 /////////////////////// LÓGICA DO SITE
