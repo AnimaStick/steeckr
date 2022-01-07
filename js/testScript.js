@@ -479,9 +479,7 @@ const checkLogin = (user,pass) =>{
     axi.post("/login",jsonLogin)
         .then(response => {
             if(response.status == 200){
-                axi.get("/auth").then(resposta => {
-                    console.log(resposta)
-                })
+                console.log(response.data);
             }
         }).catch(e => {
             console.log(e)
@@ -514,5 +512,9 @@ function checkSignUp(user, email, pass, birth, desc, profPic) {
         alert(error);
     })
 
+}
+
+function getAuth(){
+    axi.get("/auth").then(res => {console.log(res)}).catch(e=>{console.log(e)})
 }
 /////////////////////// LÓGICA DO SITE
