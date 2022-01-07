@@ -6,18 +6,24 @@
 
 //Muda o estado do menu lateral 
 $(document).ready(function(){
-    $(".search_button").click(function(){
-       $(".search_bar_div").toggleClass("m")
-    })
-    $(".top_navbar .top_menu .search_bar_div a").click(function(){
-        $(".search_bar_div").toggleClass("m")
-    })
-    $('.menu_item').click(function(){
-        $('.menu_item').removeClass('active_item')
-        $(this).addClass('active_item')
-    })
-    const home = document.getElementsByClassName('menu_item')[0]
-    showContent(home)
+    let path = window.location.pathname;
+    let page = path.split("/").pop();
+    let name = page.split(".")[0];
+    if(name == "index"){
+        $(".search_button").click(function(){
+            $(".search_bar_div").toggleClass("m")
+         })
+         $(".top_navbar .top_menu .search_bar_div a").click(function(){
+             $(".search_bar_div").toggleClass("m")
+         })
+         $('.menu_item').click(function(){
+             $('.menu_item').removeClass('active_item')
+             $(this).addClass('active_item')
+         })
+         const home = document.getElementsByClassName('menu_item')[0]
+         showContent(home)
+    }
+   
     //home.addClass('active_item')
 })
 
@@ -448,39 +454,44 @@ function signInValidation(){
     let username = document.getElementById("usernameSignIn")
     let password = document.getElementById("passwordSignIn")
     let errorLogin = document.getElementById("errorLoginSignIn")
- 
-    if(checkLogin(username.value,password.value)){
-        username.classList.remove("is-invalid")
-        username.classList.add("is-valid")
-        errorLogin.classList.add("d-none")
-    }
-    else{
+
+   
+
+    // checkLogin(username.value,password.value).then(data => {
+    //     console.log(data)
+    // })
+
+    checkLogin(username.value,password.value).then(res => {
+        if(res){
+            username.classList.remove("is-invalid")
+            username.classList.add("is-valid")
+            errorLogin.classList.add("d-none")
+            window.location.replace("index.html");
+        }
+    }).catch(e => {
         username.classList.remove("is-valid")
         username.classList.add("is-invalid")
         errorLogin.classList.remove("d-none")
-    }
+    })
+
+    
 }
 
-const checkLogin = (user,pass) =>{
-       if(user == "" || pass == ""){   
+const checkLogin = async (user,pass) =>{
+
+    if(user == "" || pass == ""){   
         return false;
     }
-  
 
     let jsonLogin = {
         "email" : user,
         "password" : pass
     }
-       
-    axi.post("/login",jsonLogin)
-        .then(response => {
-            if(response.status == 200){
-                console.log(response.data);
-            }
-        }).catch(e => {
-            console.log(e)
-        })
-    return true;
+    
+    const res = await axi.post("/login",jsonLogin)
+    if(res.status == 200)
+        return true
+    return false
 };
 
 function checkSignUp(user, email, pass, birth, desc, profPic) {
