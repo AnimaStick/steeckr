@@ -18,7 +18,7 @@ $(document).ready(function(){
     })
     const home = document.getElementsByClassName('menu_item')[0]
     showContent(home)
-    home.addClass('active_item')
+    //home.addClass('active_item')
 })
 
 //Popup de login ao scrollar na ghome
@@ -29,7 +29,7 @@ $(document).scroll(function() {
         const imgLog = document.getElementById('imgForm')
         let sizeX = $(window).width()
 
-        if (y > 200) {
+        if (y > 400) {
             if(sizeX < 800){
                 imgLog.style.display = "none"
             }
@@ -63,7 +63,7 @@ function showContent (elmnt) {
 
     //Parte para escolher qual conteudo sera exibido e qual sera removido
     var cl = elmnt.getAttribute("class").split(" ")
-    cl = cl[1] + "Content.html"
+    cls = cl[1] + "Content.html"
     
 
     //Parte que remove o anterior
@@ -74,6 +74,8 @@ function showContent (elmnt) {
     } catch(npe){
        console.log("alou")
     }
+
+    nav_display.innerHTML = `<p id="nav_title">${cl[1]}</p>`
 
     //Parte onde a magica acontece
     function a(a, b) {
@@ -92,7 +94,7 @@ function showContent (elmnt) {
     }
     var b,
     c = document.getElementsByTagName("*");
-    for(b in c) c[b].hasAttribute && c[b].hasAttribute("data-include") && c[b].getAttribute("data-include") == cl && a(c[b], c[b].getAttribute("data-include"))
+    for(b in c) c[b].hasAttribute && c[b].hasAttribute("data-include") && c[b].getAttribute("data-include") == cls && a(c[b], c[b].getAttribute("data-include"))
     getStickers()
 };
 
@@ -425,10 +427,10 @@ const checkDay = (day,month,year) => {
 };
 
 //show feed
-const url = "http://localhost:3004/stickers"
+//const url = "http://localhost:3004/stickers"
 
 function getStickers() {
-    axios.get(url).then(response => {
+    axi.get("/stickers").then(response => {
         const data = response.data
         //renderResults.textContent = JSON.stringify(data)
         for (let prop in data) {
@@ -438,12 +440,6 @@ function getStickers() {
             console.log(obj.animation_path) */
         }
     }).catch(error => console.error(error))
-}
-
-//convert stickers json to imgs
-
-function generateImg(path) {
-    $('#steste').getAttribute("src") = path;
 }
 
 //Validação do login
@@ -479,9 +475,7 @@ const checkLogin = (user,pass) =>{
     axi.post("/login",jsonLogin)
         .then(response => {
             if(response.status == 200){
-                axi.get("/auth").then(resposta => {
-                    console.log(resposta)
-                })
+                console.log(response.data);
             }
         }).catch(e => {
             console.log(e)
@@ -514,5 +508,9 @@ function checkSignUp(user, email, pass, birth, desc, profPic) {
         alert(error);
     })
 
+}
+
+function getAuth(){
+    axi.get("/auth").then(res => {console.log(res)}).catch(e=>{console.log(e)})
 }
 /////////////////////// LÓGICA DO SITE

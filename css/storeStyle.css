@@ -9,15 +9,12 @@
   font-family: 'Montserrat', sans-serif;
 }
 
-body{
-  background: #191b22;
-}
-
-.main_container{
+.wrapper .main_container{
   width: (100% - 70px);
   margin-top: 60px;
   margin-left: 70px;
   padding: 15px;
+  padding-top: 80px;
 }
 
 .main_container.blur{
@@ -25,19 +22,6 @@ body{
   -webkit-filter: blur(8px);
 }
 
-.animation_thumb{
-    display: inline-flex;
-    height: 196px;
-    width: 196px;
-    background-color: #0a0a10;
-    border-radius: 10px;
-    margin: 10px 0 0 10px;
-    cursor: pointer;
-}
-
-::-webkit-scrollbar {
-  width: 0px;
-}
 @media all and (max-width: 515px), (max-height: 515px) {
     .wrapper .main_container .animation_thumb{
         margin: 5px 0 0 0;

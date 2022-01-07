@@ -1,14 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap');
-
-*{
-  margin: 0px;
-  padding: 0px;
-  list-style: none;
-  text-decoration: none;
-  box-sizing: border-box;
-  font-family: 'Montserrat', sans-serif;
-}
-
 body{
   background: #06070d;
 }
@@ -17,8 +6,7 @@ body{
   width: (100% - 70px);
   margin-top: 60px;
   margin-left: 70px;
-  padding: 15px;
-  padding-top: 80px;
+  padding: 80px 15px 15px 15px;
 }
 
 .main_container.blur{
@@ -26,22 +14,8 @@ body{
   -webkit-filter: blur(8px);
 }
 
-.animation_thumb{
-    display: inline-flex;
-    height: 196px;
-    width: 196px;
-    background-color: #0a0a10;
-    border-radius: 10px;
-    margin: 10px 0 0 10px;
-    cursor: pointer;
-}
-
 ::-webkit-scrollbar {
     width: 0px;
 }
 @media all and (max-width: 515px), (max-height: 515px) {
-    .wrapper .main_container .animation_thumb{
-        margin: 5px 0 0 0;
-        width: 100%;
-    }
 }
