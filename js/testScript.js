@@ -11,7 +11,11 @@ $(document).ready(function(){
     let name = page.split(".")[0];
     
     if(name == "index"){
-        console.log(localStorage.id)
+        getAuth().then(res => {
+            if(res)
+                logado()
+        }).catch(e => deslogado())
+
         $(".search_button").click(function(){
             $(".search_bar_div").toggleClass("m")
         })
@@ -264,9 +268,13 @@ window.addEventListener('submit', function(event) {
     event.preventDefault();
 })
 
-function seePassword(id){
-    let senha = document.getElementById(id)
-    let icon = document.getElementById("togglePassword")
+function seePassword(idPass){
+    let senha = document.getElementById(idPass)
+    let icon
+    if(idPass != "confirmPassSignUp" )
+        icon = document.getElementById("togglePassword")
+    else
+        icon = document.getElementById("toggleConfirmPassword")
     
     if(senha.getAttribute("type") == "password"){
         senha.type = "text"
@@ -280,6 +288,73 @@ function seePassword(id){
     }
 }
 
+function dropdownLog(isLogged,data) {
+    let registrar = document.getElementById("registrarDrop")
+    let logar = document.getElementById("logarDrop")
+
+    let perfil = document.getElementById("perfilDrop")
+    let logout = document.getElementById("logoutDrop")
+    let username = document.getElementById("usernameDrop")
+    let coins = document.getElementById("coinsDrop")
+    
+    if(isLogged){
+        registrar.classList.add("d-none")
+        logar.classList.add("d-none")
+        
+        username.classList.remove("d-none")
+        coins.classList.remove("d-none")
+        perfil.classList.remove("d-none")
+        logout.classList.remove("d-none")
+
+        username.textContent = data.username
+        coins.textContent = "Moedas: " + data.coins
+        
+    }
+    else{
+        registrar.classList.remove("d-none")
+        logar.classList.remove("d-none")
+        
+        username.classList.add("d-none")
+        coins.classList.remove("d-none")
+        perfil.classList.add("d-none")
+        logout.classList.add("d-none")
+    }
+}
+
+function logado() {
+    
+    getUser(localStorage.id).then( res => {
+        let data = res[0]
+        dropdownLog(true,data)
+
+        let usernameNav = document.getElementById("usernameNav")
+        let profileNav = document.getElementById("profilePicNav")
+        let profileIcon = document.getElementById("profileIconNav").classList
+
+        
+        // profileNav.src = "../images/LogoWS.png"
+        profileIcon.add("d-none")
+
+        usernameNav.classList.remove("d-none")
+        usernameNav.textContent = data.username
+    }).catch(e => console.error(e))
+}
+
+function deslogado() {
+
+    dropdownLog(false)
+
+    let usernameNav = document.getElementById("usernameNav")
+    let profileNav = document.getElementById("profilePicNav")
+    let profileIcon = document.getElementById("profileIconNav").classList
+
+    profileNav.src = ""
+    profileNav.classList = ("d-none")
+    profileIcon.remove("d-none")
+
+    usernameNav.classList.add("d-none")
+}
+
 
 
 /////////////////////// ESTILO DO SITE
@@ -291,6 +366,12 @@ const axi = axios.create({
     baseURL: 'http://localhost:3004',
     withCredentials: true
 });
+
+
+function logout() {
+    console.log("Deslogou, só que não")
+}
+
 
 //Validação de registro
 function signUpValidation(){
@@ -515,13 +596,19 @@ async function checkSignUp(user, email, pass, birth, desc, profPic) {
 
 }
 
-async function getUser(){
-    const res = await axi.get("/user/"+id)
+async function getUser(userId){
+    const res = await axi.get("/user/"+userId)
+    return res.data
 }
 
 
 async function getAuth(){
     const res = await axi.get("/auth")
-    localStorage.id = res.data.id
+    if(res.status == 200){
+        localStorage.id = res.data.id
+        return true
+    }
+    
+
 }
 /////////////////////// LÓGICA DO SITE

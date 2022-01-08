@@ -93,9 +93,14 @@ body{
   color: #fff;
 }
 
-.wrapper .top_navbar .top_menu .right_area li{
+.wrapper .top_navbar .top_menu {
   float: left;
   margin-left: 4vw;
+}
+.right_area li{
+  float: left;
+  margin-left: 1vw;
+  
 }
 
 .wrapper .top_navbar .top_menu .right_area li a{
