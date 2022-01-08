@@ -6,30 +6,29 @@
 
 //Muda o estado do menu lateral 
 $(document).ready(function(){
+
+
+
+
     let path = window.location.pathname;
     let page = path.split("/").pop();
     let name = page.split(".")[0];
     
-    if(name == "index"){
-        getAuth().then(res => {
-            if(res)
-                logado()
-        }).catch(e => deslogado())
+    getAuth().then(res => {
+        if(res)
+            logado(name)
+    }).catch(e => deslogado(name))
 
-        $(".search_button").click(function(){
-            $(".search_bar_div").toggleClass("m")
-        })
-        $(".top_navbar .top_menu .search_bar_div a").click(function(){
-             $(".search_bar_div").toggleClass("m")
-        })
-        $(".menu_item").click(function(){
-            $('.menu_item').removeClass('active_item')
-            $(this).addClass('active_item')
-        })
-        const home = document.getElementsByClassName('menu_item')[0]
-        showContent(home)
+    switch (name){
+        case "index":
+            homeReady()
+            break;
+        case "userProfile":
+            profileReady()
+            break;
     }
-    //home.addClass('active_item')
+   
+      
 })
 
 //Popup de login ao scrollar na ghome
@@ -68,6 +67,28 @@ $(document).scroll(function() {
         console.log("oie");
     }
 });
+
+function homeReady(){
+ 
+    $(".search_button").click(function(){
+        $(".search_bar_div").toggleClass("m")
+    })
+    $(".top_navbar .top_menu .search_bar_div a").click(function(){
+         $(".search_bar_div").toggleClass("m")
+    })
+    $(".menu_item").click(function(){
+        $('.menu_item').removeClass('active_item')
+        $(this).addClass('active_item')
+    })
+    const home = document.getElementsByClassName('menu_item')[0]
+    showContent(home)
+
+    //home.addClass('active_item')
+}
+
+function profileReady(){
+   
+}
 
 //Muda o conteudo da pagina
 function showContent (elmnt) {
@@ -287,7 +308,7 @@ function seePassword(idPass){
     }
 }
 
-function dropdownLog(isLogged,data) {
+function dropdownLog(isLogged,data, page) {
     let registrar = document.getElementById("registrarDrop")
     let logar = document.getElementById("logarDrop")
 
@@ -307,6 +328,10 @@ function dropdownLog(isLogged,data) {
 
         username.textContent = data.username
         coins.textContent = "Moedas: " + data.coins
+
+        // if(page == "userProfile"){
+        //     perfil.classList.add("")
+        // }
         
     }
     else{
@@ -320,11 +345,11 @@ function dropdownLog(isLogged,data) {
     }
 }
 
-function logado() {
+function logado(page) {
     
     getUser(localStorage.id).then( res => {
         let data = res[0]
-        dropdownLog(true,data)
+        dropdownLog(true,data,page)
 
         let usernameNav = document.getElementById("usernameNav")
         let profileNav = document.getElementById("profilePicNav")
@@ -336,6 +361,8 @@ function logado() {
 
         usernameNav.classList.remove("d-none")
         usernameNav.textContent = data.username
+
+
     }).catch(e => console.error(e))
 }
 

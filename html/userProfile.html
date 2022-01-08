@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Logo e titulo -->
+    <link rel="shortcut icon" type="image/x-icon" href="../images/LogoWS.png" />
+    <title>Steeckr</title>
+
+    <!-- CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link id="indexCSS" rel="stylesheet" href="../css/testStyle.css">
+
+    <!-- JS -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="../js/testScript.js"></script>
+
+  </head>
+  <body>
+    <div class="wrapper ">
+
+        <!-- Barra de cima -->
+        <div class="top_navbar">
+
+            <!-- Botao da logo -->
+            <a href="index.html">
+                <div class="logo_icon"><img src="../images/LogoWS.png" class="logoBtn" alt="Steeckr logo">
+                </div>
+            </a>
+           
+
+            <!-- Conteudo da barra superior -->
+            <div class="top_menu">
+                <div class="logo">Steeckr</div>
+
+                <!-- Barra de pesquisa -->
+                <div class="search_bar_div">
+                    <input type="text" class="textEntry" placeholder="Procurando por..."></input>
+                    <a href="#"><i class="fas fa-search"></i></a>
+                </div>
+                <!-- Região direita da barra superior -->
+                <div class="right_area align-middle">
+                    <ul>
+                        <li class="mt-1 "><strong class="text-white ms-5 d-none" id="usernameNav">Nome</strong></li>
+                        <!-- <li><a href="#" class="search_button"><i class="fas fa-search"></i></a></li> -->
+                        <li><a href="#" class="user_button" style="margin: 0px;" onclick="showMenu()"><i class="fas fa-user user_button" id="profileIconNav"></i><img src="" id="profilePicNav" alt="Foto de Perfil"></a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Opções do usuário -->
+            <div class="dropdown-content" id="dropdownUser">
+                <!-- Opções Deslogado -->
+                <p><a href="signUp.html" class="link-success" id="registrarDrop"><strong>Registrar-se</strong></p>
+                <p><a href="signIn.html" class="link-success" id="logarDrop"><strong>Logar</strong></a></p>
+
+                <!-- Opções Logado -->
+                <div class="border-bottom border-light mb-2">
+                    <h5><strong class="text-white d-none" id="usernameDrop">Nome</strong></h5>
+                    <h6 class="text-white-50 d-none" style="font-size: 0.67em;" id="coinsDrop">Moedas: </h6>
+                    <p><a href="userProfile.html" class="link-success d-none disable" id="perfilDrop"><strong>Meu Perfil</strong></p>
+                </div>
+                <p class="d-none" id="logoutDrop" onclick="logout()"><a href="#"><strong class="text-danger">Deslogar</strong></a></p>
+            </div>
+
+        </div>
+
+        
+        <div class="container-fluid w-50 align-middle bg-light mt-5 p-5 rounded text-dark divmid " id="divSignIn">
+            <form class="form-signin" id="formSignIn" onsubmit="signInValidation();return false" method="post">
+              <div class="row">
+                <div class="text-center col-sm-12">
+                  <img class="mb-4 " src="../images/LogoBS.png" alt="" width="72" height="72">
+                </div>
+              </div>
+    
+              <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+    
+              <div class="input-group">
+                  <span class="input-group-text"><i class="fas fa-user"></i></span>
+                  <input class="form-control" id="usernameSignIn" name="username" placeholder="Username" value="">
+              </div>
+             
+              <div class="input-group mt-3">
+                  <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                  <input class="form-control" type="password" id="passwordSignIn" name="password" placeholder="Password" value="">
+                  <span class="input-group-text">
+                    <i class="fas fa-eye-slash" id="togglePassword" 
+                    style="cursor: pointer" onclick="seePassword(document.getElementById('passwordSignIn').id)"></i>
+                    </span>
+              </div>
+              <div class="d-none text-danger" id="errorLoginSignIn">
+                Usuário inexistente ou/e Senha inválida
+              </div>
+              
+              <div class="form-group mt-3">
+                <a href="signUp.html"> <small class="form-text text-muted">Registrar-se</small> </a>
+              </div>
+              <button class="btn btn-lg btn-primary btn-block mt-3 me-5" type="submit" >Logar</button>
+              <p class="mt-5 mb-3 text-muted text-center"> © 2021-2022 Steeckr </p>
+            </form>
+        </div>
+    </div>
+    
+  </body>
+</html>

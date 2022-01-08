@@ -93,7 +93,7 @@ body{
   color: #fff;
 }
 
-.wrapper .top_navbar .top_menu {
+.wrapper .top_navbar .top_menu li {
   float: left;
   margin-left: 4vw;
 }
@@ -464,3 +464,10 @@ ul{
 a{
   text-decoration: none;
 }
+
+.disable {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.6;
+}
+
