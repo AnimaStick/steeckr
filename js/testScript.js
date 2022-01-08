@@ -18,14 +18,13 @@ $(document).ready(function(){
         $(".top_navbar .top_menu .search_bar_div a").click(function(){
              $(".search_bar_div").toggleClass("m")
         })
-        $('.menu_item').click(function(){
-             $('.menu_item').removeClass('active_item')
-             $(this).addClass('active_item')
+        $(".menu_item").click(function(){
+            $('.menu_item').removeClass('active_item')
+            $(this).addClass('active_item')
         })
+        const home = document.getElementsByClassName('menu_item')[0]
+        showContent(home)
     }
-    const home = document.getElementsByClassName('menu_item')[0]
-    showContent(home)
-   
     //home.addClass('active_item')
 })
 
@@ -440,12 +439,22 @@ function getStickers() {
     axi.get("/stickers").then(response => {
         const data = response.data
         //renderResults.textContent = JSON.stringify(data)
+        let content = ""
         for (let prop in data) {
             var o = JSON.parse(JSON.stringify(data[prop]))
-            renderResults.innerHTML += `<img src="${o.animation_path}" height="200px" id="steste" class="sticker">"`
-/*             var obj = JSON.parse(JSON.stringify(data[prop]))
-            console.log(obj.animation_path) */
+            content += 
+            `   <li class="feed_row">
+                        <img class="sticker" src="${o.animation_path}">
+                </li>
+            `
+            var obj = JSON.parse(JSON.stringify(data[prop]))
+            //console.log(obj)
         }
+        renderResults.innerHTML += 
+        `<ul class="feed_list">
+            ${content}
+            <li class="feed_row"></li>
+        </ul>`
     }).catch(error => console.error(error))
 }
 
