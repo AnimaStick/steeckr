@@ -2,13 +2,6 @@ body{
   background: #06070d;
 }
 
-.wrapper .main_container{
-  width: (100% - 70px);
-  margin-top: 60px;
-  margin-left: 70px;
-  padding: 80px 15px 15px 15px;
-}
-
 .main_container.blur{
   filter: blur(8px);
   -webkit-filter: blur(8px);
