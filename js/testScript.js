@@ -475,41 +475,49 @@ function signUpValidation(username,email,password,confirmPass,date,description,p
         error= true
     }
 
-    if(checkUsername(usename.value)&& username.value.length > 2){
-        username.classList.remove("is-invalid")
-        username.classList.add("is-valid")
-        errorUser.classList.add("d-none")
-    }
-    else{
-        username.classList.remove("is-valid")
-        username.classList.add("is-invalid")
-        errorUser.classList.remove("d-none")
-        error= true
-    }
+    checkUsername(username.value).then(res =>{
+        if(res&& username.value.length > 2){
+            username.classList.remove("is-invalid")
+            username.classList.add("is-valid")
+            errorUser.classList.add("d-none")
+        }
+        else{
+            username.classList.remove("is-valid")
+            username.classList.add("is-invalid")
+            errorUser.classList.remove("d-none")
+            error= true
+        }
+    })
+    
+    if(name == "signUp" || (name == "userProfile" && password.value !="")){
+        if(password.value.length >= 8){
+            password.classList.remove("is-invalid")
+            password.classList.add("is-valid")
+            errorPass.classList.add("d-none")
+        }
+        else{
+            password.classList.remove("is-valid")
+            password.classList.add("is-invalid")
+            errorPass.classList.remove("d-none")
+            error= true
+        }
+    } 
 
-    if(password.value.length >= 8){
-        password.classList.remove("is-invalid")
-        password.classList.add("is-valid")
-        errorPass.classList.add("d-none")
-    }
-    else{
-        password.classList.remove("is-valid")
-        password.classList.add("is-invalid")
-        errorPass.classList.remove("d-none")
-        error= true
-    }
+    
+    if(name == "signUp" || (name == "userProfile" && confirmPass.value !="")){
+        if(confirmPass.value == password.value && password.value.length >= 8){
+            confirmPass.classList.remove("is-invalid")
+            confirmPass.classList.add("is-valid")
+            errorConfirmPass.classList.add("d-none")
+        }
+        else{
+            confirmPass.classList.remove("is-valid")
+            confirmPass.classList.add("is-invalid")
+            errorConfirmPass.classList.remove("d-none")
+            error= true
+        }
 
-    if(confirmPass.value == password.value && password.value.length >= 8){
-        confirmPass.classList.remove("is-invalid")
-        confirmPass.classList.add("is-valid")
-        errorConfirmPass.classList.add("d-none")
-    }
-    else{
-        confirmPass.classList.remove("is-valid")
-        confirmPass.classList.add("is-invalid")
-        errorConfirmPass.classList.remove("d-none")
-        error= true
-    }
+    } 
     if(name == "signUp"){
         if(!error){
             checkSignUp(username.value, email.value, password.value, date.value,description.value,profilePic.files[0]).then(data => {
@@ -683,8 +691,16 @@ async function checkSignUp(user, email, pass, birth, desc, profPic) {
 
 }
 
-function checkUsername(username){
+async function checkUsername(username){
+    const exist = getAllUsers().then(res =>{
+        for(let i = 0; i < res.length; i++){
+            if(res[i].username == username)
+                return false
+        }
+        return true
+    }).catch(e => console.log(e))
 
+    return exist
 }
 
 
@@ -693,11 +709,13 @@ function checkUsername(username){
 async function updateUser(userId,username, email, password, birth,description,profilePic){
     let birthdayValues = birth.split("/");
     let birthdayFormatted = `${birthdayValues[2]}-${birthdayValues[1]}-${birthdayValues[0]}`
+
 }
 
 async function getAllUsers(){
     const res = await axi.get("/users")
-    console.log(res.data)
+    return res.data
+  
 }
 
 async function getUser(userId){
