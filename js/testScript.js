@@ -87,7 +87,37 @@ function homeReady(){
 }
 
 function profileReady(){
-   
+    getUser(localStorage.id).then( res => {
+        let data = res[0]
+        let splitedDate = data.birthday.split("-")
+        let date = splitedDate[2].substring(0,2)
+        let birthday = `${date}/${splitedDate[1]}/${splitedDate[0]}`
+        let formatpath = data.picture_path.substring(1)
+        let profilepath = `http://localhost:3004${formatpath}`
+
+        let username = document.getElementById("usernameAltProfile")
+        let email = document.getElementById("emailAltProfile")
+        let birth = document.getElementById("birthDateAltProfile")
+        let description = document.getElementById("descriptionAltProfile")
+        let showUsername = document.getElementById("usernameProfile")
+        let showEmail = document.getElementById("emailProfile")
+        let profilePic = document.getElementById("profilepicAltProfile")
+
+        showUsername.textContent = data.username
+        showEmail.textContent = data.email
+        description.value= data.description
+        username.value = data.username
+        email.value = data.email
+        birth.value = birthday
+      
+        profilePic.src = profilepath
+
+        
+
+       
+
+
+    }).catch(e => console.log(e))
 }
 
 //Muda o conteudo da pagina
@@ -328,10 +358,6 @@ function dropdownLog(isLogged,data, page) {
 
         username.textContent = data.username
         coins.textContent = "Moedas: " + data.coins
-
-        // if(page == "userProfile"){
-        //     perfil.classList.add("")
-        // }
         
     }
     else{
@@ -355,8 +381,11 @@ function logado(page) {
         let profileNav = document.getElementById("profilePicNav")
         let profileIcon = document.getElementById("profileIconNav").classList
 
+        let formatpath = data.picture_path.substring(1)
+        let profilepath = `http://localhost:3004${formatpath}`
+
         
-        // profileNav.src = "../images/LogoWS.png"
+        profileNav.src = profilepath
         profileIcon.add("d-none")
 
         usernameNav.classList.remove("d-none")
@@ -374,6 +403,7 @@ function deslogado() {
     let profileNav = document.getElementById("profilePicNav")
     let profileIcon = document.getElementById("profileIconNav").classList
 
+    
     profileNav.src = ""
     profileNav.classList = ("d-none")
     profileIcon.remove("d-none")
@@ -384,6 +414,11 @@ function deslogado() {
 
 
 /////////////////////// ESTILO DO SITE
+
+
+
+
+
 
 
 /////////////////////// LÓGICA DO SITE

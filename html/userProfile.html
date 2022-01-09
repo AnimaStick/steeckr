@@ -44,9 +44,12 @@
                 <!-- Região direita da barra superior -->
                 <div class="right_area align-middle">
                     <ul>
-                        <li class="mt-1 "><strong class="text-white ms-5 d-none" id="usernameNav">Nome</strong></li>
+                        <!-- <li class="mt-1 "><strong class="text-white ms-5 d-none" id="usernameNav">Nome</strong></li> -->
                         <!-- <li><a href="#" class="search_button"><i class="fas fa-search"></i></a></li> -->
-                        <li><a href="#" class="user_button" style="margin: 0px;" onclick="showMenu()"><i class="fas fa-user user_button" id="profileIconNav"></i><img src="" id="profilePicNav" alt="Foto de Perfil"></a></li>
+                        <li><a href="#" class="user_button" style="margin: 0px;" onclick="showMenu()">
+                            <i class="fas fa-user user_button" id="profileIconNav"></i>
+                            <img class="rounded-circle " width="60px" id="profilePicNav" alt="Foto de Perfil">
+                        </a></li>
                     </ul>
                 </div>
 
@@ -71,40 +74,78 @@
 
         
         <div class="container rounded bg-white mt-5 mb-5">
-          <div class="row">
-              <div class="col-md-4 border-right">
-                  <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">Edogaru</span><span class="text-black-50">edogaru@mail.com.my</span><span> </span></div>
-              </div>
-              <div class="col-md-8 border-right">
-                  <div class="p-3 py-5">
-                      <div class="d-flex justify-content-between align-items-center mb-3">
-                          <h4 class="text-right">Alterar Perfil</h4>
-                      </div>
-                      <div class="row mt-2">
-                          <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control" placeholder="first name" value=""></div>
-                          <div class="col-md-6"><label class="labels">Surname</label><input type="text" class="form-control" value="" placeholder="surname"></div>
-                      </div>
-                      <div class="row mt-3">
-                          <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" placeholder="enter phone number" value=""></div>
-                          <div class="col-md-12"><label class="labels">Address Line 1</label><input type="text" class="form-control" placeholder="enter address line 1" value=""></div>
-                          <div class="col-md-12"><label class="labels">Address Line 2</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-                          <div class="col-md-12"><label class="labels">Postcode</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-                          <div class="col-md-12"><label class="labels">State</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-                          <div class="col-md-12"><label class="labels">Area</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-                          <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control" placeholder="enter email id" value=""></div>
-                          <div class="col-md-12"><label class="labels">Education</label><input type="text" class="form-control" placeholder="education" value=""></div>
-                      </div>
-                      <div class="row mt-3">
-                          <div class="col-md-6"><label class="labels">Country</label><input type="text" class="form-control" placeholder="country" value=""></div>
-                          <div class="col-md-6"><label class="labels">State/Region</label><input type="text" class="form-control" value="" placeholder="state"></div>
-                      </div>
-                      <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div>
-                  </div>
-              </div>
-              
+            <div class="row">
+                <div class="col-md-4 border-right mb-5">
+                    <div class="d-flex flex-column align-items-center text-center py-5">
+                        <img class="rounded-circle mt-5" width="150px" src="" id="profilepicAltProfile">
+                        <span class="font-weight-bold mt-2" id="usernameProfile">username</span>
+                        <span class="text-black-50" id="emailProfile">email</span>
+                    </div>
+                    <label class="mt-1">Descrição</label>
+                    <textarea class="form-control mt-2 " id="descriptionAltProfile" rows="3" value=""></textarea>
+                </div>
+                <div class="col-md-8 border-right">
+                    <div class="p-3 py-5">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="text-right">Alterar Perfil</h4>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-6"><label class="labels">Mudar username</label><input type="text" class="form-control" placeholder="Digite o novo username" value="" id="usernameAltProfile"></div>
+                            <div class="col-md-6"><label class="labels">Mudar email</label><input type="text" class="form-control" placeholder="Digite o novo email"  value="" id="emailAltProfile"></div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <label class="labels">Alterar senha</label>
+                                <div class="input-group mt-3">
+                                    <input class="form-control" type="password" id="passwordAltProfile" name="password" placeholder="Digite a nova Senha" value="">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-eye-slash" id="togglePassword" 
+                                        style="cursor: pointer" onclick="seePassword(document.getElementById('passwordSignUp').id)"></i>
+                                    </span> 
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="labels">Confirma senha</label>
+                                <div class="input-group mt-3">
+                                    <input class="form-control" type="password" id="confirmPassSignUp" name="password" placeholder="Confirme a Senha" value="">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-eye-slash" id="toggleConfirmPassword" 
+                                        style="cursor: pointer" onclick="seePassword(document.getElementById('confirmPassSignUp').id)"></i>
+                                    </span> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <label class="labels">Data de Aniversário</label>
+                                <div class="input-group date" data-date-format="dd/mm/yyyy">
+                                    <input  type="text" class="form-control " id="birthDateAltProfile" name="birthDate" placeholder="dd/mm/yyyy" value="" id="birthdateAltProfile">
+                                    <div class="input-group-addon" >
+                                    </div>
+                                </div>
+                            </div>
+                           
+            
+                        </div>
+                        <div class="row mt-3">
+                            <div class="row mt-3">
+                                <div class="col-md-6"><label class="labels"></label></div>
+                                <div class="col-md-6"><label class="labels"></label></div>
+                            </div>
+                        </div>
+                        <div class="row mt-5">
+                            <div class=" offset-md-2 col-md-2 mt-3"><label class="labels link-primary">Cancelar</label></div>
+                            <div class="offset-md-2 col-md-4"><button class="btn btn-primary btn-lg"  type="button">Salvar Alterações</button></div>
+                        </div>
+                        <div class="mt-5 text-center"></div>
+                    </div>
+                </div>
           </div>
       </div>
     </div>
-    
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.min.js'></script>
+    <script>
+        $('.input-group.date').datepicker({format: "dd/mm/yyyy"});
+    </script>
   </body>
 </html>
