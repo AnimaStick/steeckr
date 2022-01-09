@@ -9,19 +9,6 @@
   font-family: 'Montserrat', sans-serif;
 }
 
-.wrapper .main_container{
-  width: (100% - 70px);
-  margin-top: 60px;
-  margin-left: 70px;
-  padding: 15px;
-  padding-top: 80px;
-}
-
-.main_container.blur{
-  filter: blur(8px);
-  -webkit-filter: blur(8px);
-}
-
 @media all and (max-width: 515px), (max-height: 515px) {
     .wrapper .main_container .animation_thumb{
         margin: 5px 0 0 0;
