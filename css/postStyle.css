@@ -1,0 +1,16 @@
+.carousel-item {
+    height: 32rem;
+    background: #06070d;
+    color: #fff;
+}
+.carousel-item{
+    -webkit-box-pack: center!important;
+    justify-content: center!important;
+}
+.carousel-item.active{
+    display: flex;
+}
+img.d-block {
+    max-height: 32rem;
+    max-width: 32rem;
+}

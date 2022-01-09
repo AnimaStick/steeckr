@@ -26,6 +26,9 @@ $(document).ready(function(){
         case "userProfile":
             profileReady()
             break;
+        case "Post":
+            postReady()
+            break;
     }
 })
 
@@ -114,6 +117,10 @@ function profileReady(){
         birth.value = birthday
         profilePic.src = profilepath
     }).catch(e => console.log(e))
+}
+
+function postReady() {
+
 }
 
 //Muda o conteudo da pagina
