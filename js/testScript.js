@@ -1,23 +1,12 @@
-
-
-
-/////////////////////// ESTILO DO SITE
-
-
-//Muda o estado do menu lateral 
 $(document).ready(function(){
     let path = window.location.pathname;
     let page = path.split("/").pop();
     let name = page.split(".")[0];
-
-    getAllUsers()
-
-    if(name == "index" || name == "userProfile"){
-        getAuth().then(res => {
-            if(res)
-                logado(name)
-        }).catch(e => deslogado(name))          
-    }
+    
+    getAuth().then(res => {
+        if(res)
+            logado(name)
+    }).catch(e => deslogado(name))
 
     switch (name){
         case "index":
@@ -26,10 +15,10 @@ $(document).ready(function(){
         case "userProfile":
             profileReady()
             break;
-        case "Post":
+        case "post":
             postReady()
             break;
-    }
+    } 
 })
 
 //Popup de login ao scrollar na ghome
@@ -98,29 +87,31 @@ function profileReady(){
 
         let username = document.getElementById("usernameAltProfile")
         let email = document.getElementById("emailAltProfile")
-        let password = document.getElementById("passwordAltProfile")
-        let confirmpassword = document.getElementById("confirmPassSignUp")
         let birth = document.getElementById("birthDateAltProfile")
         let description = document.getElementById("descriptionAltProfile")
         let showUsername = document.getElementById("usernameProfile")
         let showEmail = document.getElementById("emailProfile")
         let profilePic = document.getElementById("profilepicAltProfile")
-   
 
-        password.value = ""
-        confirmpassword.value = ""
         showUsername.textContent = data.username
         showEmail.textContent = data.email
         description.value= data.description
         username.value = data.username
         email.value = data.email
         birth.value = birthday
+      
         profilePic.src = profilepath
+
+        
+
+       
+
+
     }).catch(e => console.log(e))
 }
 
 function postReady() {
-
+    console.log(localStorage.stickerId)
 }
 
 //Muda o conteudo da pagina
@@ -375,10 +366,12 @@ function dropdownLog(isLogged,data, page) {
 }
 
 function logado(page) {
-    
+    console.log(localStorage.id)
     getUser(localStorage.id).then( res => {
         let data = res[0]
         dropdownLog(true,data,page)
+
+        let usernameNav = document.getElementById("usernameNav")
         let profileNav = document.getElementById("profilePicNav")
         let profileIcon = document.getElementById("profileIconNav").classList
 
@@ -388,6 +381,9 @@ function logado(page) {
         
         profileNav.src = profilepath
         profileIcon.add("d-none")
+
+        usernameNav.classList.remove("d-none")
+        usernameNav.textContent = data.username
 
 
     }).catch(e => console.error(e))
@@ -400,6 +396,7 @@ function deslogado() {
     let usernameNav = document.getElementById("usernameNav")
     let profileNav = document.getElementById("profilePicNav")
     let profileIcon = document.getElementById("profileIconNav").classList
+
     
     profileNav.src = ""
     profileNav.classList = ("d-none")
@@ -407,7 +404,6 @@ function deslogado() {
 
     usernameNav.classList.add("d-none")
 }
-
 
 
 
@@ -431,7 +427,12 @@ function logout() {
     console.log("Deslogou, só que não")
 }
 
-function signUpClick(){
+
+//Validação de registro
+function signUpValidation(){
+    
+    let error = false
+
     let date = document.getElementById("birthDateSignUp")
     let email = document.getElementById("emailSignUp")
     let username = document.getElementById("usernameSignUp")
@@ -439,19 +440,8 @@ function signUpClick(){
     let confirmPass = document.getElementById("confirmPassSignUp")
     let description = document.getElementById("descriptionSignUp")
     let profilePic = document.getElementById("profilePicSignUp")
-    signUpValidation(username,email,password,confirmPass,date,description,profilePic)
-}
-
-//Validação de registro
-function signUpValidation(username,email,password,confirmPass,date,description,profilePic){
     
-    let path = window.location.pathname;
-    let page = path.split("/").pop();
-    let name = page.split(".")[0];
 
-    let error = false
-
-    
     let errorDate = document.getElementById("errorBirthDateSignUp")
     let errorEmail = document.getElementById("errorEmailSignUp")
     let errorUser = document.getElementById("errorUsernameSignUp")
@@ -482,65 +472,49 @@ function signUpValidation(username,email,password,confirmPass,date,description,p
         error= true
     }
 
-    checkUsername(username.value).then(res =>{
-        if(res&& username.value.length > 2){
-            username.classList.remove("is-invalid")
-            username.classList.add("is-valid")
-            errorUser.classList.add("d-none")
-        }
-        else{
-            username.classList.remove("is-valid")
-            username.classList.add("is-invalid")
-            errorUser.classList.remove("d-none")
-            error= true
-        }
-    })
-    
-    if(name == "signUp" || (name == "userProfile" && password.value !="")){
-        if(password.value.length >= 8){
-            password.classList.remove("is-invalid")
-            password.classList.add("is-valid")
-            errorPass.classList.add("d-none")
-        }
-        else{
-            password.classList.remove("is-valid")
-            password.classList.add("is-invalid")
-            errorPass.classList.remove("d-none")
-            error= true
-        }
-    } 
-
-    
-    if(name == "signUp" || (name == "userProfile" && confirmPass.value !="")){
-        if(confirmPass.value == password.value && password.value.length >= 8){
-            confirmPass.classList.remove("is-invalid")
-            confirmPass.classList.add("is-valid")
-            errorConfirmPass.classList.add("d-none")
-        }
-        else{
-            confirmPass.classList.remove("is-valid")
-            confirmPass.classList.add("is-invalid")
-            errorConfirmPass.classList.remove("d-none")
-            error= true
-        }
-
-    } 
-    if(name == "signUp"){
-        if(!error){
-            checkSignUp(username.value, email.value, password.value, date.value,description.value,profilePic.files[0]).then(data => {
-                if(data == 201){
-                    getAuth().then( res =>{
-                        window.location.replace("signIn.html")}
-                    )
-                }
-            }).catch(e => console.log(e))
-        }
-    } else if(name == "updateProfile"){
-        if(!error){
-            updateUser(localStorage.id,username.value, email.value, password.value, date.value,description.value,profilePic.files[0])
-        }
+    if(username.value != "admin" && username.value.length > 2){
+        username.classList.remove("is-invalid")
+        username.classList.add("is-valid")
+        errorUser.classList.add("d-none")
     }
-    
+    else{
+        username.classList.remove("is-valid")
+        username.classList.add("is-invalid")
+        errorUser.classList.remove("d-none")
+        error= true
+    }
+
+    if(password.value.length > 8){
+        password.classList.remove("is-invalid")
+        password.classList.add("is-valid")
+        errorPass.classList.add("d-none")
+    }
+    else{
+        password.classList.remove("is-valid")
+        password.classList.add("is-invalid")
+        errorPass.classList.remove("d-none")
+        error= true
+    }
+
+    if(confirmPass.value == password.value){
+        confirmPass.classList.remove("is-invalid")
+        confirmPass.classList.add("is-valid")
+        errorConfirmPass.classList.add("d-none")
+    }
+    else{
+        confirmPass.classList.remove("is-valid")
+        confirmPass.classList.add("is-invalid")
+        errorConfirmPass.classList.remove("d-none")
+        error= true
+    }
+
+    if(!error){
+        console.log(profilePic.files);
+        checkSignUp(username.value, email.value, password.value, date.value,description.value,profilePic.files[0]).then(data => {
+            if(data == 201)
+                window.location.replace("index.html")
+        }).catch(e => console.log(e))
+    }
 }
 
 
@@ -607,7 +581,14 @@ function getStickers() {
             var o = JSON.parse(JSON.stringify(data[prop]))
             content += 
             `   <li class="feed_row">
+                    <div class="container_sticker">
                         <img class="sticker" src="${o.animation_path}">
+                        <div class="overlay" onclick="openPost(this)" title="${o.id}">
+                            <div class="sticker_title">
+                                ${o.title}\n${o.views}
+                            </div>
+                        </div>
+                    </div>
                 </li>
             `
             var obj = JSON.parse(JSON.stringify(data[prop]))
@@ -619,6 +600,12 @@ function getStickers() {
             <li class="feed_row"></li>
         </ul>`
     }).catch(error => console.error(error))
+}
+
+function openPost(elmnt) {
+    localStorage.stickerId = elmnt.getAttribute("title");
+    window.location = "post.html";
+    console.log(localStorage.stickerId)
 }
 
 //Validação do login
@@ -648,19 +635,8 @@ function signInValidation(){
         username.classList.add("is-invalid")
         errorLogin.classList.remove("d-none")
     })
-}
 
-function updateProfile(){
-    let username = document.getElementById("usernameAltProfile")
-    let email = document.getElementById("emailAltProfile")
-    let birth = document.getElementById("birthDateAltProfile")
-    let description = document.getElementById("descriptionAltProfile")
-    let profilePic = document.getElementById("profilepicAltProfile")
-    let password = document.getElementById("passwordAltProfile")
-    let confirmPassword = document.getElementById("confirmPassSignUp")
-
-    signUpValidation(username,email,password,confirmPassword,birth,description,profilePic)
-
+    
 }
 
 const checkLogin = async (user,pass) =>{
@@ -698,37 +674,11 @@ async function checkSignUp(user, email, pass, birth, desc, profPic) {
 
 }
 
-async function checkUsername(username){
-    const exist = getAllUsers().then(res =>{
-        for(let i = 0; i < res.length; i++){
-            if(res[i].username == username)
-                return false
-        }
-        return true
-    }).catch(e => console.log(e))
-
-    return exist
-}
-
-
-
-
-async function updateUser(userId,username, email, password, birth,description,profilePic){
-    let birthdayValues = birth.split("/");
-    let birthdayFormatted = `${birthdayValues[2]}-${birthdayValues[1]}-${birthdayValues[0]}`
-
-}
-
-async function getAllUsers(){
-    const res = await axi.get("/users")
-    return res.data
-  
-}
-
 async function getUser(userId){
     const res = await axi.get("/user/"+userId)
     return res.data
 }
+
 
 async function getAuth(){
     const res = await axi.get("/auth")
@@ -736,5 +686,7 @@ async function getAuth(){
         localStorage.id = res.data.id
         return true
     }
+    
+
 }
 /////////////////////// LÓGICA DO SITE

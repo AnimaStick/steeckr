@@ -157,6 +157,7 @@ body{
   top: 60px;
   left: 0px;
   background: #0a0a10;
+  z-index: 3;
   border-right: 1px solid #555;
 }
 
@@ -265,56 +266,45 @@ ul{
 .feed_row:last-child {
   flex-grow: 10;
 }
-
-.sticker_container {
-  position: relative;
-  object-fit: cover;
-  vertical-align: bottom;
+.container_sticker {
+    position: relative;
+    max-height: 30vh;
+    object-fit: cover;
+    vertical-align: bottom;
 }
 
 .sticker {
-  max-height: 100%;
-  min-width: 100%;
-  object-fit: cover;
-  vertical-align: bottom;
+    max-height: 30vh;
+    min-width: 100%;
+  }
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: #000;
 }
 
-.sticker_overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 30vh;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  color: #ffffff;
-  font-family: 'Quicksand', sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 0.25s;
-}
-.sticker_overlay--blur {
-  backdrop-filter: blur(5px);
+.container_sticker:hover .overlay {
+    opacity: 0.5;
 }
 
-.sticker_overlay--primary {
-  background: #009578;
-}
-
-.sticker_overlay > * {
-  transform: translateY(20px);
-  transition: transform 0.25s;
-}
-
-.sticker_overlay:hover {
-  opacity: 1;
-}
-
-.sticker_description {
-  font-size: 1.25em;
-  margin-top: 0.25em;
+.sticker_title {
+    color: white;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
 }
 
 ::-webkit-scrollbar {
@@ -444,15 +434,12 @@ ul{
     -webkit-filter: blur(0);
   }
 
-  .wrapper .top_navbar.blur{
+.wrapper .top_navbar.blur{
     filter: blur(0);
     -webkit-filter: blur(0);
-  }
-  
-  .ilustration{
-    display: none;
-  }
-  #nav_display{
+}
+
+#nav_display{
     margin-left: 0;
   }
 }
