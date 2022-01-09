@@ -18,7 +18,6 @@ $(document).ready(function(){
                 logado(name)
         }).catch(e => deslogado(name))          
     }
-
     switch (name){
         case "index":
             homeReady()
@@ -26,7 +25,7 @@ $(document).ready(function(){
         case "userProfile":
             profileReady()
             break;
-        case "Post":
+        case "post":
             postReady()
             break;
     }
@@ -120,7 +119,7 @@ function profileReady(){
 }
 
 function postReady() {
-
+    console.log(localStorage.stickerId)
 }
 
 //Muda o conteudo da pagina
@@ -625,7 +624,14 @@ function getStickers() {
             var o = JSON.parse(JSON.stringify(data[prop]))
             content += 
             `   <li class="feed_row">
+                    <div class="container_sticker">
                         <img class="sticker" src="${o.animation_path}">
+                        <div class="overlay" onclick="openPost(this)" title="${o.id}">
+                            <div class="sticker_title">
+                                ${o.title}\n${o.views}
+                            </div>
+                        </div>
+                    </div>
                 </li>
             `
             var obj = JSON.parse(JSON.stringify(data[prop]))
@@ -637,6 +643,12 @@ function getStickers() {
             <li class="feed_row"></li>
         </ul>`
     }).catch(error => console.error(error))
+}
+
+function openPost(elmnt) {
+    localStorage.stickerId = elmnt.getAttribute("title");
+    window.location = "post.html";
+    console.log(localStorage.stickerId)
 }
 
 //Validação do login
