@@ -443,7 +443,7 @@ function signUpClick(){
 }
 
 //Validação de registro
-function signUpValidation(username,email,password,confirmPass,date,description,profilePic){
+async function signUpValidation(username,email,password,confirmPass,date,description,profilePic){
     
     let path = window.location.pathname;
     let page = path.split("/").pop();
@@ -470,32 +470,42 @@ function signUpValidation(username,email,password,confirmPass,date,description,p
         error= true
     }
 
-    if(validateEmail(email.value) != null){
-        email.classList.remove("is-invalid")
-        email.classList.add("is-valid")
-        errorEmail.classList.add("d-none")
-    }
-    else{
-        email.classList.remove("is-valid")
-        email.classList.add("is-invalid")
-        errorEmail.classList.remove("d-none")
-        error= true
-    }
+    const emailError = await validateEmail(email.value).then(res => {
+        if(res){
+            email.classList.remove("is-invalid")
+            email.classList.add("is-valid")
+            errorEmail.classList.add("d-none")
+            return false
+        }
+        else{
+            email.classList.remove("is-valid")
+            email.classList.add("is-invalid")
+            errorEmail.classList.remove("d-none")
+            return true
+        }
+    })
+    
+    if(emailError)
+        error = emailError
 
-    checkUsername(username.value).then(res =>{
-        if(res&& username.value.length > 2){
+    const userError = await checkUsername(username.value).then(res =>{
+        if( res && username.value.length > 2){
             username.classList.remove("is-invalid")
             username.classList.add("is-valid")
             errorUser.classList.add("d-none")
+            return false
         }
         else{
             username.classList.remove("is-valid")
             username.classList.add("is-invalid")
             errorUser.classList.remove("d-none")
-            error= true
+            return true
         }
     })
-    
+
+    if(userError)
+        error = userError
+
     if(name == "signUp" || (name == "userProfile" && password.value !="")){
         if(password.value.length >= 8){
             password.classList.remove("is-invalid")
@@ -525,6 +535,7 @@ function signUpValidation(username,email,password,confirmPass,date,description,p
         }
 
     } 
+    console.log(error)
     if(name == "signUp"){
         if(!error){
             checkSignUp(username.value, email.value, password.value, date.value,description.value,profilePic.files[0]).then(data => {
@@ -544,11 +555,18 @@ function signUpValidation(username,email,password,confirmPass,date,description,p
 }
 
 
-const validateEmail = (email) => {
-  return email.match(
-    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-  );
-};
+async function validateEmail (email) {
+    const checked = getAllUsers().then(res => {
+        for (let index = 0; index < res.length; index++) {
+            if(res[index].email == email && res[index].id != localStorage.id)
+                return false
+        }
+        return email.match(
+            /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        );
+    })
+    return checked
+}
 
 const validateDate = (date) =>{
     let splitedDate = date.split("/")
@@ -701,7 +719,7 @@ async function checkSignUp(user, email, pass, birth, desc, profPic) {
 async function checkUsername(username){
     const exist = getAllUsers().then(res =>{
         for(let i = 0; i < res.length; i++){
-            if(res[i].username == username)
+            if(res[i].username == username && res[i].id != localStorage.id)
                 return false
         }
         return true
