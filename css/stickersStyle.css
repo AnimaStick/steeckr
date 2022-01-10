@@ -1,0 +1,14 @@
+body{
+    background: #06070d;
+  }
+  
+  .main_container.blur{
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+  }
+  
+  ::-webkit-scrollbar {
+      width: 0px;
+  }
+  @media all and (max-width: 515px), (max-height: 515px) {
+  }

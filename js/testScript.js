@@ -14,12 +14,14 @@ $(document).ready(function(){
 
     if(name == "index" || name == "userProfile"){
         getAuth().then(res => {
-            if(res)
-                logado(name)
+            if(res) logado(name)
         }).catch(e => deslogado(name))          
     }
     switch (name){
         case "index":
+            homeReady()
+            break;
+        case "":
             homeReady()
             break;
         case "userProfile":
@@ -70,7 +72,7 @@ $(document).scroll(function() {
 
 function homeReady(){
     $(".top_navbar .top_menu .search_bar_div a").click(function(){
-        filterStickers()
+        filterAnimations()
         $(".search_bar_div").toggleClass("m")
     })
     $(".menu_item").click(function(){
@@ -116,8 +118,8 @@ function profileReady(){
 }
 
 function postReady() {
-    console.log(localStorage.stickerId)
-    axi.get("/sticker/" + localStorage.stickerId).then(res => {
+    console.log(localStorage.animationId)
+    axi.get("/animation/" + localStorage.animationId).then(res => {
         const data = JSON.parse(JSON.stringify(res.data[0]))
         getUser(data.id_user).then( response => {
             const userData = response[0]
@@ -138,14 +140,14 @@ function postReady() {
     })
 }
 function openPost(elmnt) {
-    localStorage.stickerId = elmnt.getAttribute("title");
+    localStorage.animationId = elmnt.getAttribute("title");
     window.location = "post.html";
-    console.log(localStorage.stickerId)
+    console.log(localStorage.animationId)
 }
 
-function filterStickers() {
+function filterAnimations() {
     console.log(desk_search_bar.value)
-    axi.get("/stickers/" + desk_search_bar.value).then(response => {
+    axi.get("/animations/" + desk_search_bar.value).then(response => {
         const data = response.data
         //renderResults.textContent = JSON.stringify(data)
         let content = ""
@@ -154,7 +156,7 @@ function filterStickers() {
             content += 
             `   <li class="feed_row">
                     <div class="container_sticker">
-                        <img class="sticker" src="${o.animation_path}">
+                        <img loading="lazy" class="sticker" src="${o.animation_path}">
                         <div class="overlay" onclick="openPost(this)" title="${o.title}-${o.id}">
                             <div class="sticker_title">
                                 ${o.title}
@@ -168,6 +170,7 @@ function filterStickers() {
                 </li>
             `
         }
+        while (!renderResults) {}
         renderResults.innerHTML = 
         `<ul class="feed_list">
             ${content}
@@ -212,7 +215,9 @@ function showContent (elmnt) {
     var b,
     c = document.getElementsByTagName("*");
     for(b in c) c[b].hasAttribute && c[b].hasAttribute("data-include") && c[b].getAttribute("data-include") == cls && a(c[b], c[b].getAttribute("data-include"))
-    getStickers()
+    
+    if(cls == "homeContent.html") getAnimations()
+    else if (cls == "stickersContent.html") getStickers()
 };
 
 //Função para chamar o resize corresponde quando a janela é mudada de tamanho
@@ -223,6 +228,9 @@ window.addEventListener('resize', function(event){
     
     switch (name) {
         case "index":
+            resizeIndex();
+            break;
+        case "":
             resizeIndex();
             break;
         case "signIn":
@@ -241,6 +249,9 @@ window.addEventListener('load', function(event){
     
     switch (name) {
         case "index":
+            resizeIndex();
+            break;
+        case "":
             resizeIndex();
             break;
         case "signIn":
@@ -432,7 +443,7 @@ $(document).on('click', '#upload_link', function(e) {
 });
 
 function logado(page) {
-    
+
     getUser(localStorage.id).then( res => {
         let data = res[0]
         dropdownLog(true,data,page)
@@ -676,8 +687,8 @@ const checkDay = (day,month,year) => {
 //show feed
 //const url = "http://localhost:3004/stickers"
 
-function getStickers() {
-    axi.get("/stickers").then(response => {
+function getAnimations() {
+    axi.get("/animations").then(response => {
         const data = response.data
         //renderResults.textContent = JSON.stringify(data)
         let content = ""
@@ -686,7 +697,7 @@ function getStickers() {
             content += 
             `   <li class="feed_row">
                     <div class="container_sticker">
-                        <img class="sticker" src="${o.animation_path}">
+                        <img loading="lazy" class="sticker" src="${o.animation_path}">
                         <div class="overlay" onclick="openPost(this)" title="${o.title}-${o.id}">
                             <div class="sticker_title">
                                 ${o.title}
@@ -702,6 +713,7 @@ function getStickers() {
             var obj = JSON.parse(JSON.stringify(data[prop]))
             //console.log(obj)
         }
+        while (!renderResults) {}
         renderResults.innerHTML += 
         `<ul class="feed_list">
             ${content}
@@ -710,11 +722,50 @@ function getStickers() {
     }).catch(error => console.error(error))
 }
 
+function getStickers() {
+    if (localStorage.id) {
+        axi.get("/stickers/"+localStorage.id).then(response => {
+            const data = response.data
+            //renderResults.textContent = JSON.stringify(data)
+            let content = ""
+            for (let prop in data) {
+                var o = JSON.parse(JSON.stringify(data[prop]))
+                content += 
+                `   <li class="feed_row">
+                        <div class="container_sticker">
+                            <img class="sticker" src="${o.animation_path}">
+                            <div class="overlay" onclick="openPost(this)" title="${o.title}-${o.id}">
+                                <div class="sticker_title">
+                                    ${o.title}
+                                </div>
+                                <div class="sticker_views">
+                                ${o.views}
+                                <span class="icon"><i class="fas fa-eye"></i></span>
+                            </div>
+                            </div>
+                        </div>
+                    </li>
+                `
+                var obj = JSON.parse(JSON.stringify(data[prop]))
+                //console.log(obj)
+            }
+            renderResults.innerHTML = 
+            `<ul class="feed_list">
+                ${content}
+                <li class="feed_row"></li>
+            </ul>`
+        }).catch(error => console.error(error))
+    } else {
+        renderResults.innerHTML = "Voce n esta Logado"
+        console.log("Voce n esta Logado")
+    }
+}
+
 function openPost(elmnt) {
-    localStorage.stickerId = elmnt.getAttribute("title").split("-")[1]
-    console.log(localStorage.stickerId)
+    localStorage.animationId = elmnt.getAttribute("title").split("-")[1]
+    console.log(localStorage.animationId)
     window.location = "post.html";
-    console.log(localStorage.stickerId)
+    console.log(localStorage.animationId)
 }
 
 //Validação do login
