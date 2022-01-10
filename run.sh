@@ -1,1 +1,1 @@
-live-server --host=localhost --https=https-front.js
+live-server --host=localhost
