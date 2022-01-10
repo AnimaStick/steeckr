@@ -134,6 +134,8 @@ function postReady() {
         post_title.innerHTML = data.title
         post_publish_date.innerHTML = "Publicado em: "+ (data.creation_date).split('T')[0]
         post_views.innerHTML = data.views + " Visualizações"
+        post_likes.innerHTML = data.likes + " Likes";
+        post_comments.innerHTML = data.comments + " Comentários";
         post_description.innerHTML = data.description
     })
 }
@@ -670,6 +672,7 @@ function getStickers() {
 }
 
 function openPost(elmnt) {
+    console.log(elmnt.getAttribute("title"));
     localStorage.stickerId = elmnt.getAttribute("title");
     window.location = "post.html";
     console.log(localStorage.stickerId)
