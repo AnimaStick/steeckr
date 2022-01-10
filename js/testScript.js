@@ -156,7 +156,7 @@ function filterAnimations() {
             content += 
             `   <li class="feed_row">
                     <div class="container_sticker">
-                        <img class="sticker" src="${o.animation_path}">
+                        <img loading="lazy" class="sticker" src="${o.animation_path}">
                         <div class="overlay" onclick="openPost(this)" title="${o.title}-${o.id}">
                             <div class="sticker_title">
                                 ${o.title}
@@ -693,7 +693,7 @@ function getAnimations() {
             content += 
             `   <li class="feed_row">
                     <div class="container_sticker">
-                        <img class="sticker" src="${o.animation_path}">
+                        <img loading="lazy" class="sticker" src="${o.animation_path}">
                         <div class="overlay" onclick="openPost(this)" title="${o.title}-${o.id}">
                             <div class="sticker_title">
                                 ${o.title}
