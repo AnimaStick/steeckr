@@ -896,6 +896,23 @@ async function updateUser(userId,username, email, password, birth,description,pr
     return res.status
 }
 
+function uploadAnimation(){
+    let title = document.getElementById("titleUploadAnimation")
+    let description = document.getElementById("descriptionUploadAnimation")
+    let file = document.getElementById("fileUploadAnimation")
+    let showImg = document.getElementById("showAnimation")
+
+    file.addEventListener("change",function() {
+        console.log("aaaaa")
+    })
+   
+    // showImg.src = URL.createObjectURL(event.target.files[0]);
+    // output.onload = function() {
+    //   URL.revokeObjectURL(output.src) 
+    // }
+    //postAnimation(title,description,file)
+}
+
 async function getAllUsers(){
     const res = await axi.get("/users")
     return res.data
@@ -905,6 +922,10 @@ async function getAllUsers(){
 async function getUser(userId){
     const res = await axi.get("/user/"+userId)
     return res.data
+}
+
+async function postAnimation(title,description,file) {
+    const res = await axi.post("/stickers")
 }
 
 async function getAuth(){

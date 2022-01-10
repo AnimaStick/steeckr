@@ -509,3 +509,7 @@ a{
   cursor: pointer;
 }
 
+.uploadAnimation {
+  max-height: 75vh;
+  max-width: 75%;
+}
