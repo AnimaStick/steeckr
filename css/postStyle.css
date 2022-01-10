@@ -2,18 +2,17 @@ body {
     background-color: #06070d;
 }
 .carousel-item {
+    margin: auto;
+    height: 32rem;
+    width: max-content;
     background: #171920;
     color: #fff;
-}
-.carousel-item{
-    -webkit-box-pack: center!important;
-    justify-content: center!important;
 }
 .carousel-item.active{
     display: flex;
 }
 img.d-block {
-    max-height: 50rem;
+    max-height: 32rem;
     max-width: 60rem;
 }
 .container {
