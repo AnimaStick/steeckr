@@ -167,6 +167,7 @@ function filterAnimations() {
                 </li>
             `
         }
+        while (!renderResults) {}
         renderResults.innerHTML = 
         `<ul class="feed_list">
             ${content}
@@ -699,6 +700,7 @@ function getAnimations() {
             var obj = JSON.parse(JSON.stringify(data[prop]))
             //console.log(obj)
         }
+        while (!renderResults) {}
         renderResults.innerHTML += 
         `<ul class="feed_list">
             ${content}
