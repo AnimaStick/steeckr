@@ -1,6 +1,9 @@
 body {
     background-color: #06070d;
 }
+.carousel.slide {
+    background-color: #0c0d13;
+}
 .carousel-item {
     margin: auto;
     height: 32rem;

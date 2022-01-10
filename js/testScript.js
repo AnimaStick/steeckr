@@ -69,12 +69,9 @@ $(document).scroll(function() {
 });
 
 function homeReady(){
- 
-    $(".search_button").click(function(){
-        $(".search_bar_div").toggleClass("m")
-    })
     $(".top_navbar .top_menu .search_bar_div a").click(function(){
-         $(".search_bar_div").toggleClass("m")
+        filterStickers()
+        $(".search_bar_div").toggleClass("m")
     })
     $(".menu_item").click(function(){
         $('.menu_item').removeClass('active_item')
@@ -119,6 +116,7 @@ function profileReady(){
 }
 
 function postReady() {
+    console.log(localStorage.stickerId)
     axi.get("/sticker/" + localStorage.stickerId).then(res => {
         const data = JSON.parse(JSON.stringify(res.data[0]))
         getUser(data.id_user).then( response => {
@@ -143,6 +141,39 @@ function openPost(elmnt) {
     localStorage.stickerId = elmnt.getAttribute("title");
     window.location = "post.html";
     console.log(localStorage.stickerId)
+}
+
+function filterStickers() {
+    console.log(desk_search_bar.value)
+    axi.get("/stickers/" + desk_search_bar.value).then(response => {
+        const data = response.data
+        //renderResults.textContent = JSON.stringify(data)
+        let content = ""
+        for (let prop in data) {
+            var o = JSON.parse(JSON.stringify(data[prop]))
+            content += 
+            `   <li class="feed_row">
+                    <div class="container_sticker">
+                        <img class="sticker" src="${o.animation_path}">
+                        <div class="overlay" onclick="openPost(this)" title="${o.title}-${o.id}">
+                            <div class="sticker_title">
+                                ${o.title}
+                            </div>
+                            <div class="sticker_views">
+                            ${o.views}
+                            <span class="icon"><i class="fas fa-eye"></i></span>
+                        </div>
+                        </div>
+                    </div>
+                </li>
+            `
+        }
+        renderResults.innerHTML = 
+        `<ul class="feed_list">
+            ${content}
+            <li class="feed_row"></li>
+        </ul>`
+    }).catch(error => console.error(error))
 }
 
 //Muda o conteudo da pagina
@@ -652,10 +683,14 @@ function getStickers() {
             `   <li class="feed_row">
                     <div class="container_sticker">
                         <img class="sticker" src="${o.animation_path}">
-                        <div class="overlay" onclick="openPost(this)" title="${o.id}">
+                        <div class="overlay" onclick="openPost(this)" title="${o.title}-${o.id}">
                             <div class="sticker_title">
-                                ${o.title}\n${o.views}
+                                ${o.title}
                             </div>
+                            <div class="sticker_views">
+                            ${o.views}
+                            <span class="icon"><i class="fas fa-eye"></i></span>
+                        </div>
                         </div>
                     </div>
                 </li>
@@ -672,8 +707,8 @@ function getStickers() {
 }
 
 function openPost(elmnt) {
-    console.log(elmnt.getAttribute("title"));
-    localStorage.stickerId = elmnt.getAttribute("title");
+    localStorage.stickerId = elmnt.getAttribute("title").split("-")[1]
+    console.log(localStorage.stickerId)
     window.location = "post.html";
     console.log(localStorage.stickerId)
 }
