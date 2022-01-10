@@ -14,8 +14,7 @@ $(document).ready(function(){
 
     if(name == "index" || name == "userProfile"){
         getAuth().then(res => {
-            if(res)
-                logado(name)
+            if(res) logado(name)
         }).catch(e => deslogado(name))          
     }
     switch (name){
@@ -430,7 +429,7 @@ function dropdownLog(isLogged,data, page) {
 }
 
 function logado(page) {
-    
+
     getUser(localStorage.id).then( res => {
         let data = res[0]
         dropdownLog(true,data,page)
@@ -709,37 +708,42 @@ function getAnimations() {
 }
 
 function getStickers() {
-    axi.get("/stickers").then(response => {
-        const data = response.data
-        //renderResults.textContent = JSON.stringify(data)
-        let content = ""
-        for (let prop in data) {
-            var o = JSON.parse(JSON.stringify(data[prop]))
-            content += 
-            `   <li class="feed_row">
-                    <div class="container_sticker">
-                        <img class="sticker" src="${o.animation_path}">
-                        <div class="overlay" onclick="openPost(this)" title="${o.title}-${o.id}">
-                            <div class="sticker_title">
-                                ${o.title}
+    if (localStorage.id) {
+        axi.get("/stickers/"+localStorage.id).then(response => {
+            const data = response.data
+            //renderResults.textContent = JSON.stringify(data)
+            let content = ""
+            for (let prop in data) {
+                var o = JSON.parse(JSON.stringify(data[prop]))
+                content += 
+                `   <li class="feed_row">
+                        <div class="container_sticker">
+                            <img class="sticker" src="${o.animation_path}">
+                            <div class="overlay" onclick="openPost(this)" title="${o.title}-${o.id}">
+                                <div class="sticker_title">
+                                    ${o.title}
+                                </div>
+                                <div class="sticker_views">
+                                ${o.views}
+                                <span class="icon"><i class="fas fa-eye"></i></span>
                             </div>
-                            <div class="sticker_views">
-                            ${o.views}
-                            <span class="icon"><i class="fas fa-eye"></i></span>
+                            </div>
                         </div>
-                        </div>
-                    </div>
-                </li>
-            `
-            var obj = JSON.parse(JSON.stringify(data[prop]))
-            //console.log(obj)
-        }
-        renderResults.innerHTML += 
-        `<ul class="feed_list">
-            ${content}
-            <li class="feed_row"></li>
-        </ul>`
-    }).catch(error => console.error(error))
+                    </li>
+                `
+                var obj = JSON.parse(JSON.stringify(data[prop]))
+                //console.log(obj)
+            }
+            renderResults.innerHTML = 
+            `<ul class="feed_list">
+                ${content}
+                <li class="feed_row"></li>
+            </ul>`
+        }).catch(error => console.error(error))
+    } else {
+        renderResults.innerHTML = "Voce n esta Logado"
+        console.log("Voce n esta Logado")
+    }
 }
 
 function openPost(elmnt) {
