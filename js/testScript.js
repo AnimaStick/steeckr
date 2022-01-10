@@ -744,7 +744,6 @@ async function checkSignUp(user, email, pass, birth, desc, profPic) {
     bodyFD.append("password",pass)
     bodyFD.append("birthday",birthdayFormatted)
     bodyFD.append("description",desc)
-    console.log(profPic);
     bodyFD.append("profilePic",profPic)
 
     const res = await axi.post("/users",bodyFD,{headers: {'Content-Type': 'multipart/form-data'}})
