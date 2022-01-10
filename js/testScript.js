@@ -555,8 +555,8 @@ async function signUpValidation(username,email,password,confirmPass,date,descrip
         }
 
     } 
-    console.log(error)
-    if(name == "signUp"){
+    console.log(name);
+    if(name === "signUp"){
         if(!error){
             checkSignUp(username.value, email.value, password.value, date.value,description.value,profilePic.files[0]).then(data => {
                 if(data == 201){
@@ -566,9 +566,12 @@ async function signUpValidation(username,email,password,confirmPass,date,descrip
                 }
             }).catch(e => console.log(e))
         }
-    } else if(name == "updateProfile"){
+    } else if(name === "userProfile"){
         if(!error){
-            updateUser(localStorage.id,username.value, email.value, password.value, date.value,description.value,profilePic.files[0])
+            if(!profilePic.files)
+                updateUser(localStorage.id,username.value, email.value, password.value, date.value,description.value,null);
+            else
+                updateUser(localStorage.id,username.value, email.value, password.value, date.value,description.value,profilePic.files[0]);
         }
     }
     
@@ -745,7 +748,6 @@ async function checkSignUp(user, email, pass, birth, desc, profPic) {
     bodyFD.append("password",pass)
     bodyFD.append("birthday",birthdayFormatted)
     bodyFD.append("description",desc)
-    console.log(profPic);
     bodyFD.append("profilePic",profPic)
 
     const res = await axi.post("/users",bodyFD,{headers: {'Content-Type': 'multipart/form-data'}})
@@ -771,7 +773,18 @@ async function checkUsername(username){
 async function updateUser(userId,username, email, password, birth,description,profilePic){
     let birthdayValues = birth.split("/");
     let birthdayFormatted = `${birthdayValues[2]}-${birthdayValues[1]}-${birthdayValues[0]}`
+    var bodyFD = new FormData()
 
+    bodyFD.append("username",username)
+    bodyFD.append("email",email)
+    bodyFD.append("password",password)
+    bodyFD.append("birthday",birthdayFormatted)
+    bodyFD.append("description",description)
+    bodyFD.append("profilePic",profilePic)
+
+    const res = await axi.put(`/users/${userId}`,bodyFD,{headers: {'Content-Type': 'multipart/form-data'}})
+    console.log(res);
+    return res.status
 }
 
 async function getAllUsers(){
