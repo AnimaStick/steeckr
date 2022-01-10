@@ -46,7 +46,6 @@
                     <!-- Região direita da barra superior -->
                     <div class="right_area align-middle">
                         <ul>
-                            <!-- <li class="mt-1 "><strong class="text-white ms-5 d-none" id="usernameNav">Nome</strong></li> -->
                             <!-- <li><a href="#" class="search_button"><i class="fas fa-search"></i></a></li> -->
                             <li><a href="#" class="user_button" style="margin: 0px;" onclick="showMenu()">
                                 <i class="fas fa-user user_button" id="profileIconNav"></i>
@@ -64,10 +63,11 @@
                     <p><a href="signIn.html" class="link-success" id="logarDrop"><strong>Logar</strong></a></p>
 
                     <!-- Opções Logado -->
-                    <div class="border-bottom border-light mb-2">
+                    <div id="dropdownLogado" class="border-bottom border-light mb-2 d-none">
                         <h5><strong class="text-white d-none" id="usernameDrop">Nome</strong></h5>
                         <h6 class="text-white-50 d-none" style="font-size: 0.67em;" id="coinsDrop">Moedas: </h6>
                         <p><a href="userProfile.html" class="link-success d-none" id="perfilDrop"><strong>Meu Perfil</strong></p>
+                        <p><a href="uploadAnimation.html" class="link-success d-none" id="uploadAnimation"><strong>Postar animação</strong></p>
                     </div>
                     <p class="d-none" id="logoutDrop" onclick="logout()"><a href="#"><strong class="text-danger">Deslogar</strong></a></p>
                 </div>

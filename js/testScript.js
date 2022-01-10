@@ -12,7 +12,7 @@ $(document).ready(function(){
 
     getAllUsers()
 
-    if(name == "index" || name == "userProfile"){
+    if(name == "index" || name == "userProfile" || name == "uploadAnimation"){
         getAuth().then(res => {
             if(res) logado(name)
         }).catch(e => deslogado(name))          
@@ -86,6 +86,7 @@ function homeReady(){
 }
 
 function profileReady(){
+    
     getUser(localStorage.id).then( res => {
         let data = res[0]
         let splitedDate = data.birthday.split("-")
@@ -102,7 +103,10 @@ function profileReady(){
         let description = document.getElementById("descriptionAltProfile")
         let showUsername = document.getElementById("usernameProfile")
         let showEmail = document.getElementById("emailProfile")
-        let profilePic = document.getElementById("profilepicAltProfile")
+        let profilePic = document.getElementById("profilepicShowProfile")
+
+        let usernameNav = document.getElementById("usernameDrop")
+        let profileNav = document.getElementById("profilePicNav")
    
 
         password.value = ""
@@ -114,7 +118,11 @@ function profileReady(){
         email.value = data.email
         birth.value = birthday
         profilePic.src = profilepath
+        usernameNav = data.username
+        profileNav.src = profilepath
+        
     }).catch(e => console.log(e))
+    
 }
 
 function postReady() {
@@ -413,6 +421,8 @@ function dropdownLog(isLogged,data, page) {
     let logout = document.getElementById("logoutDrop")
     let username = document.getElementById("usernameDrop")
     let coins = document.getElementById("coinsDrop")
+    let dropdownLogado = document.getElementById("dropdownLogado")
+    let upload = document.getElementById("uploadAnimation")
     
     if(isLogged){
         registrar.classList.add("d-none")
@@ -422,6 +432,8 @@ function dropdownLog(isLogged,data, page) {
         coins.classList.remove("d-none")
         perfil.classList.remove("d-none")
         logout.classList.remove("d-none")
+        dropdownLogado.classList.remove("d-none")
+        upload.classList.remove("d-none")
 
         username.textContent = data.username
         coins.textContent = "Moedas: " + data.coins
@@ -432,9 +444,11 @@ function dropdownLog(isLogged,data, page) {
         logar.classList.remove("d-none")
         
         username.classList.add("d-none")
-        coins.classList.remove("d-none")
+        coins.classList.add("d-none")
         perfil.classList.add("d-none")
         logout.classList.add("d-none")
+        dropdownLogado.classList.add("d-none")
+        upload.classList.add("d-none")
     }
 }
 
@@ -449,6 +463,7 @@ function logado(page) {
         dropdownLog(true,data,page)
         let profileNav = document.getElementById("profilePicNav")
         let profileIcon = document.getElementById("profileIconNav").classList
+        
 
         let formatpath = data.picture_path.substring(1)
         let profilepath = `http://localhost:3004${formatpath}`
@@ -495,8 +510,10 @@ const axi = axios.create({
 });
 
 
-function logout() {
-    console.log("Deslogou, só que não")
+async function logout() {
+   const res = await axi.post("/logout")
+   window.location.replace("index.html")
+   return res
 }
 
 function signUpClick(){
@@ -802,10 +819,11 @@ function updateProfile(){
     let email = document.getElementById("emailAltProfile")
     let birth = document.getElementById("birthDateAltProfile")
     let description = document.getElementById("descriptionAltProfile")
-    let profilePic = document.getElementById("profilepicAltProfile")
+    let profilePic = document.getElementById("profilePicAltProfile")
     let password = document.getElementById("passwordAltProfile")
     let confirmPassword = document.getElementById("confirmPassSignUp")
 
+    console.log(profilePic)
     signUpValidation(username,email,password,confirmPassword,birth,description,profilePic)
 
 }
@@ -874,6 +892,7 @@ async function updateUser(userId,username, email, password, birth,description,pr
 
     const res = await axi.put(`/users/${userId}`,bodyFD,{headers: {'Content-Type': 'multipart/form-data'}})
     console.log(res);
+    profileReady()
     return res.status
 }
 
