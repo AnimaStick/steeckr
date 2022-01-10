@@ -647,10 +647,14 @@ function getStickers() {
             `   <li class="feed_row">
                     <div class="container_sticker">
                         <img class="sticker" src="${o.animation_path}">
-                        <div class="overlay" onclick="openPost(this)" title="${o.id}">
+                        <div class="overlay" onclick="openPost(this)" title="${o.title}">
                             <div class="sticker_title">
-                                ${o.title}\n${o.views}
+                                ${o.title}
                             </div>
+                            <div class="sticker_views">
+                            ${o.views}
+                            <span class="icon"><i class="fas fa-eye"></i></span>
+                        </div>
                         </div>
                     </div>
                 </li>

@@ -277,7 +277,7 @@ ul{
 .sticker {
     max-height: 30vh;
     min-width: 100%;
-  }
+}
 
 .overlay {
     position: absolute;
@@ -298,14 +298,23 @@ ul{
 
 .sticker_title {
     color: white;
-    font-size: 20px;
+    font-size: 18px;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    bottom: 3%;
+    left: 3%;
     text-align: center;
+}
+.sticker_views {
+    color: white;
+    font-size: 18px;
+    position: absolute;
+    bottom: 3%;
+    right: 3%;
+    text-align: center;
+}
+.overlay span.icon {
+    font-size: 14px;
+    color: white;
 }
 
 ::-webkit-scrollbar {
@@ -370,7 +379,7 @@ ul{
   .wrapper .main_container{
     width: auto;
     margin: 0;
-    padding: 10px 10px 0 10px;
+    padding: 75px 10px 0 10px;
   }
 
   .wrapper .sidebar{
@@ -443,6 +452,18 @@ ul{
 #nav_display{
     margin-left: 0;
   }
+
+  .container_sticker {
+    max-height: 15vh;
+}
+
+.sticker {
+    max-height: 15vh;
+}
+
+.feed_row {
+    height: 15vh;
+}
 }
 
 .border-3 {
