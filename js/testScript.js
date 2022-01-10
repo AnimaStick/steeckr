@@ -124,7 +124,9 @@ function postReady() {
         getUser(data.id_user).then( response => {
             const userData = response[0]
             post_user.innerHTML = "por " + userData.username
-            post_user_pic.src = userData.picture_path
+            let formatpath = userData.picture_path.substring(1)
+            let profilepath = `http://localhost:3004${formatpath}`
+            post_user_pic.src = profilepath
         })
 
         console.log(data)
