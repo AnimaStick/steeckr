@@ -480,3 +480,32 @@ a{
   opacity: 0.6;
 }
 
+.profilePic{
+  position: relative;
+  max-height: 30vh;
+  object-fit: cover;
+  vertical-align: bottom;
+ 
+}
+
+.profilePic_content{
+  transition: .5s ease-in;
+  opacity: 0;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 50;
+}
+
+.profilePic:hover{
+  opacity: 0.2;
+}
+
+.profilePic:hover .profilePic_content{
+  opacity: 1;
+  display: flex!important;
+  cursor: pointer;
+}
+

@@ -427,6 +427,10 @@ function dropdownLog(isLogged,data, page) {
     }
 }
 
+$(document).on('click', '#upload_link', function(e) {
+    $("#profilePicAltProfile").trigger('click');
+});
+
 function logado(page) {
     
     getUser(localStorage.id).then( res => {
@@ -811,7 +815,8 @@ async function updateUser(userId,username, email, password, birth,description,pr
 
     bodyFD.append("username",username)
     bodyFD.append("email",email)
-    bodyFD.append("password",password)
+    if(password != "" || password != null)
+        bodyFD.append("password",password)
     bodyFD.append("birthday",birthdayFormatted)
     bodyFD.append("description",description)
     bodyFD.append("profilePic",profilePic)

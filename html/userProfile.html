@@ -49,6 +49,7 @@
                         <li><a href="#" class="user_button" style="margin: 0px;" onclick="showMenu()">
                             <i class="fas fa-user user_button" id="profileIconNav"></i>
                             <img class="rounded-circle " width="60px" id="profilePicNav" alt="Foto de Perfil">
+                            
                         </a></li>
                     </ul>
                 </div>
@@ -77,7 +78,16 @@
             <div class="row">
                 <div class="col-md-4 border-right mb-5">
                     <div class="d-flex flex-column align-items-center text-center py-5">
-                        <img class="rounded-circle mt-5" width="150px" src="" id="profilepicAltProfile">
+                        
+                        <div class="profilePic" style="width: 150px;">
+                            <img class="rounded-circle  " width="150px" src="" id="profilepicAltProfile" style="background-color: black;">
+                            <div class="profilePic_content" id="upload_link" >
+                                <!-- <i class="fas fa-camera"></i> -->
+                                <h3 class="mt-1">Alterar perfil</h3>
+                            </div>
+                        </div>
+                        <input id="profilePicAltProfile" type="file" style="display: none;"/>
+                        <!-- <a href="#" id="upload_link">Mudar sua foto de perfil</a> -->
                         <span class="font-weight-bold mt-2" id="usernameProfile">username</span>
                         <span class="text-black-50" id="emailProfile">email</span>
                     </div>
