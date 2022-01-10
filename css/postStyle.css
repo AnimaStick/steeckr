@@ -6,7 +6,8 @@ body {
 }
 .carousel-item {
     margin: auto;
-    height: 32rem;
+    max-height: 32rem;
+    max-width: 100%;
     width: max-content;
     background: #171920;
     color: #fff;
