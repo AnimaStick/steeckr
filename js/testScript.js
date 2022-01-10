@@ -21,6 +21,9 @@ $(document).ready(function(){
         case "index":
             homeReady()
             break;
+        case "":
+            homeReady()
+            break;
         case "userProfile":
             profileReady()
             break;
@@ -227,6 +230,9 @@ window.addEventListener('resize', function(event){
         case "index":
             resizeIndex();
             break;
+        case "":
+            resizeIndex();
+            break;
         case "signIn":
         case "signUp":
             resizeSign()
@@ -243,6 +249,9 @@ window.addEventListener('load', function(event){
     
     switch (name) {
         case "index":
+            resizeIndex();
+            break;
+        case "":
             resizeIndex();
             break;
         case "signIn":
