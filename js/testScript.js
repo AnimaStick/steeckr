@@ -64,7 +64,7 @@ $(document).scroll(function() {
                 $('#nav_display').removeClass("blur")
         }
     } catch (err) {
-        console.log("oie");
+        //console.log("oie");
     }
 });
 
@@ -119,6 +119,27 @@ function profileReady(){
 }
 
 function postReady() {
+    axi.get("/sticker/" + localStorage.stickerId).then(res => {
+        const data = JSON.parse(JSON.stringify(res.data[0]))
+        getUser(data.id_user).then( response => {
+            const userData = response[0]
+            post_user.innerHTML = "por " + userData.username
+            let formatpath = userData.picture_path.substring(1)
+            let profilepath = `http://localhost:3004${formatpath}`
+            post_user_pic.src = profilepath
+        })
+
+        console.log(data)
+        post_pic.src = data.animation_path
+        post_title.innerHTML = data.title
+        post_publish_date.innerHTML = "Publicado em: "+ (data.creation_date).split('T')[0]
+        post_views.innerHTML = data.views + " Visualizações"
+        post_description.innerHTML = data.description
+    })
+}
+function openPost(elmnt) {
+    localStorage.stickerId = elmnt.getAttribute("title");
+    window.location = "post.html";
     console.log(localStorage.stickerId)
 }
 

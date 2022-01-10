@@ -14,13 +14,14 @@
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="../js/testScript.js"></script>
 
+        <link rel="shortcut icon" type="image/x-icon" href="../images/LogoWS.png" />
         <title>Post</title>
     </head>
     <body>
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img class="d-block w-100" src="https://avatars.githubusercontent.com/u/88856792?v=4" alt="First slide">
+                    <img id="post_pic" class="d-block w-100" src="" alt="First slide">
                 </div>
             </div>
             <a class="carousel-control-prev" href="#" role="button">
@@ -36,22 +37,22 @@
             <div class="row main">
 
                 <div class="col-auto">
-                    <img class="user-pic"src="https://avatars.githubusercontent.com/u/88856792?v=4" alt="First slide">
+                    <img id="post_user_pic" class="user-pic"src="" alt="User-pic">
                 </div>
 
                 <div class="col-auto mr-auto">
 
                     <div class="row">
-                        <div class="col-auto mr-auto">Titulo</div>
+                        <div id="post_title" class="col-auto mr-auto">Titulo</div>
                     </div>
                     <div class="row">
-                        <div class="col-auto">por "usuario"</div>
+                        <div id="post_user" class="col-auto">por "usuario"</div>
                     </div>
 
                 </div>
                 <div class="col-auto align-self-end">
                     <div class="row">
-                        <div class="col-auto">Data de publicação</div>
+                        <div id="post_publish_date" class="col-auto">Data de publicação</div>
                     </div>
 
                 </div>
@@ -60,10 +61,10 @@
             <div class="row info">
                 <div class="col-auto">X likes</div>
                 <div class="col-auto">Y comments</div>
-                <div class="col-auto mr-auto">Z Views</div>
+                <div id="post_views" class="col-auto mr-auto">Z Views</div>
             </div>
             <div class="row desc">
-                <div class="col-12">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure accusantium possimus perferendis numquam, odio deserunt beatae quasi mollitia pariatur, itaque quia nulla maiores porro sapiente nam illo doloremque necessitatibus earum?</div>
+                <div id="post_description" class="col-12">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure accusantium possimus perferendis numquam, odio deserunt beatae quasi mollitia pariatur, itaque quia nulla maiores porro sapiente nam illo doloremque necessitatibus earum?</div>
             </div>
         
         </div>

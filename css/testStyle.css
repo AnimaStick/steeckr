@@ -20,7 +20,7 @@ body{
   position: fixed;
   top: 0px;
   left: 0px;
-  z-index: 2;
+  z-index: 4;
 }
 
 .wrapper .top_navbar.blur{
@@ -138,6 +138,7 @@ body{
   height: 65px;
   margin: 0 0 0 70px;
   background-color: #161a1ff0;
+  z-index: 2;
   
 }
 #nav_display.blur {
