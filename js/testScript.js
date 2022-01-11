@@ -491,7 +491,7 @@ $(document).on('click', '#upload_link', function(e) {
 function verifyDailyPack() {
     try {
         axi.get("/verifyCooldownUser/" + localStorage.id).then(response => {
-            if (response.status == 200) {
+            if (response.data.message === "S") {
                 document.getElementById("exampleModal").style.opacity = "1"
                 document.getElementById("exampleModal").style.display = "block"
             } 
@@ -813,7 +813,7 @@ function closePopUp() {
 
 function getStickers() {
     if (localStorage.id) {
-        axi.get("/stickers/"+localStorage.id).then(response => {
+        axi.get("/stickersPossess/"+localStorage.id).then(response => {
             const data = response.data
             //renderResults.textContent = JSON.stringify(data)
             let content = ""
