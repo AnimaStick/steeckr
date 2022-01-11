@@ -909,24 +909,87 @@ async function updateUser(userId,username, email, password, birth,description,pr
 function uploadAnimation(){
     let title = document.getElementById("titleUploadAnimation")
     let description = document.getElementById("descriptionUploadAnimation")
-    let file = document.getElementById("fileUploadAnimation")
-    let showImg = document.getElementById("showAnimation")
+    let path = document.getElementById("fileUploadAnimation")
+    let button =  document.getElementById("buttonUpload")
 
-    file.addEventListener("change",function() {
-        console.log("aaaaa")
-    })
-   
-    // showImg.src = URL.createObjectURL(event.target.files[0]);
-    // output.onload = function() {
-    //   URL.revokeObjectURL(output.src) 
-    // }
-    //postAnimation(title,description,file)
+    let error = false
+
+    if(title.value != ""){
+        title.classList.remove("is-invalid")
+        title.classList.add("is-valid")
+        errorTitle.classList.add("d-none")
+    }
+    else{
+        title.classList.add("is-invalid")
+        title.classList.remove("is-valid")
+        errorTitle.classList.remove("d-none")
+        error = true
+    }
+
+    if(description.value != ""){
+        description.classList.remove("is-invalid")
+        description.classList.add("is-valid")
+        errorDescription.classList.add("d-none")
+    }
+    else{
+        description.classList.add("is-invalid")
+        description.classList.remove("is-valid")
+        errorDescription.classList.remove("d-none")
+        error = true
+    }
+
+    if(path.value != ""){
+        path.classList.remove("is-invalid")
+        path.classList.add("is-valid")
+        errorPath.classList.add("d-none")
+    }
+    else{
+        path.classList.add("is-invalid")
+        path.classList.remove("is-valid")
+        errorPath.classList.remove("d-none")
+        error = true
+    }
+
+    if(!error){
+        if(localStorage.uploaded){
+            postAnimation(title.value,description.value,localStorage.animation_path)
+            button.classList.add("btn-primary")
+            button.classList.remove("btn-danger")
+        }
+        else{
+            button.classList.add("btn-danger")
+            button.classList.remove("btn-primary")
+        }
+
+    }
+}
+
+function saveImage() {
+    uploadImage().then(res =>{
+        console.log(res)
+        let formatpath = res.substring(1)
+        let profilepath = `http://localhost:3004${formatpath}`
+        let showImg = document.getElementById("showAnimation")
+
+        showImg.src = profilepath
+        localStorage.uploaded = true
+        localStorage.animation_path = profilepath
+
+
+    }).catch(e => console.log(e))
+}
+
+async function uploadImage() {
+    let path = document.getElementById("fileUploadAnimation")
+    var bodyFD = new FormData()
+    bodyFD.append("file",path.files[0])
+    const res = await axi.post("/uploadFile",bodyFD,{headers: {'Content-Type': 'multipart/form-data'}})
+    return res.data
 }
 
 async function getAllUsers(){
     const res = await axi.get("/users")
     return res.data
-  
 }
 
 async function getUser(userId){
@@ -935,7 +998,19 @@ async function getUser(userId){
 }
 
 async function postAnimation(title,description,file) {
-    const res = await axi.post("/stickers")
+    if(title == "" || description == "" || file == "" || title == null || description == null || file == null){   
+        return false;
+    }
+
+    let jsonAnimation = {
+        "title" : title,
+        "description" : description,
+        "id_user" : localStorage.id,
+        "path": file
+    }
+
+    const res = await axi.post("/stickers",jsonAnimation)
+    console.log(res)
 }
 
 async function getAuth(){

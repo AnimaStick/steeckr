@@ -89,10 +89,12 @@
                     <div class="offset-1 col-md-8">
                         <label class="labels"><strong>Selecione a animação</strong></label>
                         <input class="form-control  ps-2 " type="file" id="fileUploadAnimation" accept="image/*">
-                        
+                        <div class="d-none mb-2 text-danger" id="errorPath">
+                            Animação não foi selecionada
+                        </div>
                     </div>
                     <div class=" col-md-2 mt-4">
-                        <button class="btn btn-primary btn-sm"  type="button" onclick="saveImage()">Upload Image</button>
+                        <button class="btn btn-primary btn-sm" id="buttonUpload" type="button" onclick="saveImage()">Upload Image</button>
                     </div>
                     
                 </div>
@@ -100,12 +102,18 @@
                     <div class="offset-1 col-md-8">
                         <label class="labels"><strong>Título</strong></label>
                         <input class="form-control" type="text" id="titleUploadAnimation"  placeholder="Digite o título da postagem" value=""> 
+                        <div class="d-none mb-2 text-danger" id="errorTitle">
+                            Título em branco
+                        </div>
                     </div>
                 </div>
                 <div class="row mt-3 mx-3">
                     <div class=" offset-1 col-md-8">
                         <label class="labels"><strong>Descrição</strong></label>
                         <textarea class="form-control mt-2 " id="descriptionUploadAnimation" rows="3" value=""></textarea>
+                        <div class="d-none mb-2 text-danger" id="errorDescription">
+                            Descrição em branco
+                        </div>
 
                     </div>
                 </div>
