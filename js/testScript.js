@@ -92,9 +92,7 @@ function profileReady(){
         let splitedDate = data.birthday.split("-")
         let date = splitedDate[2].substring(0,2)
         let birthday = `${date}/${splitedDate[1]}/${splitedDate[0]}`
-        let formatpath = data.picture_path.substring(1)
-        let profilepath = `http://localhost:3004${formatpath}`
-
+       
         let username = document.getElementById("usernameAltProfile")
         let email = document.getElementById("emailAltProfile")
         let password = document.getElementById("passwordAltProfile")
@@ -109,6 +107,15 @@ function profileReady(){
         let profileNav = document.getElementById("profilePicNav")
    
 
+        if(data.picture_path != null && data.picture_path != undefined ){
+            let formatpath = data.picture_path.substring(1)
+            let profilepath = `http://localhost:3004${formatpath}`
+            profileNav.src = profilepath
+            profilePic.src = profilepath
+
+        }
+        
+
         password.value = ""
         confirmpassword.value = ""
         showUsername.textContent = data.username
@@ -117,9 +124,9 @@ function profileReady(){
         username.value = data.username
         email.value = data.email
         birth.value = birthday
-        profilePic.src = profilepath
+        
         usernameNav = data.username
-        profileNav.src = profilepath
+        
         
     }).catch(e => console.log(e))
     
@@ -478,6 +485,12 @@ $(document).on('click', '#upload_link', function(e) {
     $("#profilePicAltProfile").trigger('click');
 });
 
+function getDailyPack() {
+    axi.get("/getDailyPacket/" + localStorage.id).then(response => {
+        //createSticker
+    })
+}
+
 function logado(page) {
 
     getUser(localStorage.id).then( res => {
@@ -486,13 +499,23 @@ function logado(page) {
         let profileNav = document.getElementById("profilePicNav")
         let profileIcon = document.getElementById("profileIconNav").classList
         
-
-        let formatpath = data.picture_path.substring(1)
-        let profilepath = `http://localhost:3004${formatpath}`
+        if(data.picture_path != null && data.picture_path != undefined ){
+            let formatpath = data.picture_path.substring(1)
+            let profilepath = `http://localhost:3004${formatpath}`
+            profileNav.src = profilepath
+            profileIcon.add("d-none")
+            profileNav.classList.remove("d-none")
+        }
+        else{
+            profileNav.classList.add("d-none")
+            profileIcon.remove("d-none")
+        }
+            
+        
+        
 
         
-        profileNav.src = profilepath
-        profileIcon.add("d-none")
+        
 
 
     }).catch(e => console.error(e))
@@ -761,6 +784,10 @@ function getAnimations() {
     }).catch(error => console.error(error))
 }
 
+function closePopUp() {
+    document.getElementById("exampleModal").style.display = "none"
+}
+
 function getStickers() {
     if (localStorage.id) {
         axi.get("/stickers/"+localStorage.id).then(response => {
@@ -918,15 +945,111 @@ async function updateUser(userId,username, email, password, birth,description,pr
     return res.status
 }
 
+function uploadAnimation(){
+    let title = document.getElementById("titleUploadAnimation")
+    let description = document.getElementById("descriptionUploadAnimation")
+    let path = document.getElementById("fileUploadAnimation")
+    let button =  document.getElementById("buttonUpload")
+
+    let error = false
+
+    if(title.value != ""){
+        title.classList.remove("is-invalid")
+        title.classList.add("is-valid")
+        errorTitle.classList.add("d-none")
+    }
+    else{
+        title.classList.add("is-invalid")
+        title.classList.remove("is-valid")
+        errorTitle.classList.remove("d-none")
+        error = true
+    }
+
+    if(description.value != ""){
+        description.classList.remove("is-invalid")
+        description.classList.add("is-valid")
+        errorDescription.classList.add("d-none")
+    }
+    else{
+        description.classList.add("is-invalid")
+        description.classList.remove("is-valid")
+        errorDescription.classList.remove("d-none")
+        error = true
+    }
+
+    if(path.value != ""){
+        path.classList.remove("is-invalid")
+        path.classList.add("is-valid")
+        errorPath.classList.add("d-none")
+    }
+    else{
+        path.classList.add("is-invalid")
+        path.classList.remove("is-valid")
+        errorPath.classList.remove("d-none")
+        error = true
+    }
+
+    if(!error){
+        if(localStorage.uploaded){
+            postAnimation(title.value,description.value,localStorage.animation_path)
+            button.classList.add("btn-primary")
+            button.classList.remove("btn-danger")
+        }
+        else{
+            button.classList.add("btn-danger")
+            button.classList.remove("btn-primary")
+        }
+
+    }
+}
+
+function saveImage() {
+    uploadImage().then(res =>{
+        console.log(res)
+        let formatpath = res.substring(1)
+        let profilepath = `http://localhost:3004${formatpath}`
+        let showImg = document.getElementById("showAnimation")
+
+        showImg.src = profilepath
+        localStorage.uploaded = true
+        localStorage.animation_path = profilepath
+
+
+    }).catch(e => console.log(e))
+}
+
+async function uploadImage() {
+    let path = document.getElementById("fileUploadAnimation")
+    var bodyFD = new FormData()
+    bodyFD.append("file",path.files[0])
+    const res = await axi.post("/uploadFile",bodyFD,{headers: {'Content-Type': 'multipart/form-data'}})
+    return res.data
+}
+
 async function getAllUsers(){
     const res = await axi.get("/users")
     return res.data
-  
 }
 
 async function getUser(userId){
     const res = await axi.get("/user/"+userId)
     return res.data
+}
+
+async function postAnimation(title,description,file) {
+    if(title == "" || description == "" || file == "" || title == null || description == null || file == null){   
+        return false;
+    }
+
+    let jsonAnimation = {
+        "title" : title,
+        "description" : description,
+        "id_user" : localStorage.id,
+        "path": file
+    }
+
+    const res = await axi.post("/stickers",jsonAnimation)
+    console.log(res)
 }
 
 async function getAuth(){
