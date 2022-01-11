@@ -58,13 +58,18 @@
                 </div>
 
             </div>
-            <div class="row info">
+            <div class="row align-items-center info">
+                <img id="likeBtn" src="../images/likeBtn.svg" width="30px" onclick="like()" alt="Botão de like">
                 <div id="post_likes" class="col-auto">X likes</div>
                 <div id="post_comments" class="col-auto">Y comments</div>
                 <div id="post_views" class="col-auto mr-auto">Z Views</div>
             </div>
             <div class="row desc">
                 <div id="post_description" class="col-12">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure accusantium possimus perferendis numquam, odio deserunt beatae quasi mollitia pariatur, itaque quia nulla maiores porro sapiente nam illo doloremque necessitatibus earum?</div>
+            </div>
+            <div id="comments" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <input type="text" id="userComment">
+                <button onclick="comment()"> Comentar </button>
             </div>
         
         </div>

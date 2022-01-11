@@ -92,9 +92,7 @@ function profileReady(){
         let splitedDate = data.birthday.split("-")
         let date = splitedDate[2].substring(0,2)
         let birthday = `${date}/${splitedDate[1]}/${splitedDate[0]}`
-        let formatpath = data.picture_path.substring(1)
-        let profilepath = `http://localhost:3004${formatpath}`
-
+       
         let username = document.getElementById("usernameAltProfile")
         let email = document.getElementById("emailAltProfile")
         let password = document.getElementById("passwordAltProfile")
@@ -109,6 +107,15 @@ function profileReady(){
         let profileNav = document.getElementById("profilePicNav")
    
 
+        if(data.picture_path != null && data.picture_path != undefined ){
+            let formatpath = data.picture_path.substring(1)
+            let profilepath = `http://localhost:3004${formatpath}`
+            profileNav.src = profilepath
+            profilePic.src = profilepath
+
+        }
+        
+
         password.value = ""
         confirmpassword.value = ""
         showUsername.textContent = data.username
@@ -117,19 +124,18 @@ function profileReady(){
         username.value = data.username
         email.value = data.email
         birth.value = birthday
-        profilePic.src = profilepath
+        
         usernameNav = data.username
-        profileNav.src = profilepath
+        
         
     }).catch(e => console.log(e))
     
 }
 
 function postReady() {
-    console.log(localStorage.animationId)
     axi.get("/animation/" + localStorage.animationId).then(res => {
-        const data = JSON.parse(JSON.stringify(res.data[0]))
-        getUser(data.id_user).then( response => {
+        const data = JSON.parse(JSON.stringify(res.data))
+        getUser(data.animation[0].id_user).then( response => {
             const userData = response[0]
             post_user.innerHTML = "por " + userData.username
             let formatpath = userData.picture_path.substring(1)
@@ -138,13 +144,36 @@ function postReady() {
         })
 
         console.log(data)
-        post_pic.src = data.animation_path
-        post_title.innerHTML = data.title
-        post_publish_date.innerHTML = "Publicado em: "+ (data.creation_date).split('T')[0]
-        post_views.innerHTML = data.views + " Visualizações"
+        post_pic.src = data.animation[0].animation_path
+        post_title.innerHTML = data.animation[0].title
+        post_publish_date.innerHTML = "Publicado em: "+ data.animation[0].creation_date.split('T')[0]
+        post_views.innerHTML = data.animation[0].views + " Visualizações"
         post_likes.innerHTML = data.likes + " Likes";
         post_comments.innerHTML = data.comments + " Comentários";
-        post_description.innerHTML = data.description
+        post_description.innerHTML = data.animation[0].description
+        
+        const likeBtn = document.getElementById("likeBtn");
+        const commentsDiv = document.getElementById("comments");
+        axi.get("/getPostInformation/"+localStorage.animationId).then(res => {
+            const commentsArr = res.data.comments;
+            likeBtn.disabled = res.data.userLiked;
+            console.log(commentsArr)
+            let comments="";
+            for(let i = 0; i < commentsArr.length; i++){
+                let picture_path = commentsArr[i].picture_path ? commentsArr[i].picture_path.substring(2, commentsArr[i].picture_path.length) : "";
+                comments += `
+                <div style="display:flex; flex-direction:row; align-items:center; justify-content:center">
+                    <div style="display:flex">
+                        <img style="border-radius:50%;" src="http://localhost:3004/${picture_path}" width="30px" height="30px">
+                        <h3 style="margin-left:0.5rem">${commentsArr[i].username}:</h3>
+                    </div>
+                    <h4 style="margin-left:0.3rem" class="ms-2">${commentsArr[i].comment}</h4>
+                </div>
+                `;
+            }
+            commentsDiv.innerHTML += comments;
+
+        });
     })
 }
 function openPost(elmnt) {
@@ -493,13 +522,23 @@ function logado(page) {
         let profileNav = document.getElementById("profilePicNav")
         let profileIcon = document.getElementById("profileIconNav").classList
         
-
-        let formatpath = data.picture_path.substring(1)
-        let profilepath = `http://localhost:3004${formatpath}`
+        if(data.picture_path != null && data.picture_path != undefined ){
+            let formatpath = data.picture_path.substring(1)
+            let profilepath = `http://localhost:3004${formatpath}`
+            profileNav.src = profilepath
+            profileIcon.add("d-none")
+            profileNav.classList.remove("d-none")
+        }
+        else{
+            profileNav.classList.add("d-none")
+            profileIcon.remove("d-none")
+        }
+            
+        
+        
 
         
-        profileNav.src = profilepath
-        profileIcon.add("d-none")
+        
 
 
     }).catch(e => console.error(e))
@@ -1043,4 +1082,31 @@ async function getAuth(){
         return true
     }
 }
-/////////////////////// LÓGICA DO SITE
+//FEED FUNCTIONS
+async function like(){
+    
+    const likeBtn = document.getElementById("likeBtn");
+    if(likeBtn.disabled)
+        return;
+    try{
+        const res = await axi.post("/like/"+localStorage.animationId);
+        likeBtn.disabled = true;
+        post_likes.innerHTML = parseInt(post_likes.innerHTML.split(" ")[0])+1 + " Likes";
+    }catch(e){
+        console.log(e);
+        alert("erro ao dar like");
+    }
+
+}
+async function comment(){
+    try{
+        const comment = document.getElementById("userComment").value;
+        const res = axi.post("/comments/"+localStorage.animationId,{comment:comment});
+        alert("Comentário adicionado com sucesso!");
+        
+    }catch(e){
+        alert("erro ao mandar comentário");
+        console.log(e);
+    }
+
+}
