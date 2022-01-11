@@ -316,10 +316,6 @@ ul{
     font-size: 14px;
     color: white;
 }
-
-.modal {
-    display: block;
-}
 .modal-dialog {
     position: absolute;
     top: 0;
@@ -327,14 +323,6 @@ ul{
     left: 0;
     right: 0;
     margin-top: 10rem;
-}
-
-.fade:not(.show) {
-    opacity: 0;
-}
-
-.fade:not(.hide) {
-    opacity: 1;
 }
 
 .close {

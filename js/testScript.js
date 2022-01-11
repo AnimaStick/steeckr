@@ -225,7 +225,10 @@ function showContent (elmnt) {
     for(b in c) c[b].hasAttribute && c[b].hasAttribute("data-include") && c[b].getAttribute("data-include") == cls && a(c[b], c[b].getAttribute("data-include"))
     
     if(cls == "homeContent.html") getAnimations()
-    else if (cls == "stickersContent.html") getStickers()
+    else if (cls == "stickersContent.html") {
+        verifyDailyPack()
+        getStickers()
+    }
 };
 
 //Função para chamar o resize corresponde quando a janela é mudada de tamanho
@@ -456,10 +459,30 @@ $(document).on('click', '#upload_link', function(e) {
     $("#profilePicAltProfile").trigger('click');
 });
 
+function verifyDailyPack() {
+    try {
+        axi.get("/verifyCooldownUser/" + localStorage.id).then(response => {
+            if (response.status == 200) {
+                document.getElementById("exampleModal").style.opacity = "1"
+                document.getElementById("exampleModal").style.display = "block"
+            } 
+            else {
+                document.getElementById("exampleModal").style.opacity = "0"
+                document.getElementById("exampleModal").style.display = "none"
+            }
+        })
+    } catch (err) { console.error(err) }
+}
+
 function getDailyPack() {
     axi.get("/getDailyPacket/" + localStorage.id).then(response => {
-        //createSticker
+        if (response.status == 200) {
+            data = response.data
+            for (let prop in data)
+                console.log(data[prop])
+        }
     })
+    closePopUp()
 }
 
 function logado(page) {
