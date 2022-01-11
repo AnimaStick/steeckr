@@ -92,9 +92,7 @@ function profileReady(){
         let splitedDate = data.birthday.split("-")
         let date = splitedDate[2].substring(0,2)
         let birthday = `${date}/${splitedDate[1]}/${splitedDate[0]}`
-        let formatpath = data.picture_path.substring(1)
-        let profilepath = `http://localhost:3004${formatpath}`
-
+       
         let username = document.getElementById("usernameAltProfile")
         let email = document.getElementById("emailAltProfile")
         let password = document.getElementById("passwordAltProfile")
@@ -109,6 +107,15 @@ function profileReady(){
         let profileNav = document.getElementById("profilePicNav")
    
 
+        if(data.picture_path != null && data.picture_path != undefined ){
+            let formatpath = data.picture_path.substring(1)
+            let profilepath = `http://localhost:3004${formatpath}`
+            profileNav.src = profilepath
+            profilePic.src = profilepath
+
+        }
+        
+
         password.value = ""
         confirmpassword.value = ""
         showUsername.textContent = data.username
@@ -117,9 +124,9 @@ function profileReady(){
         username.value = data.username
         email.value = data.email
         birth.value = birthday
-        profilePic.src = profilepath
+        
         usernameNav = data.username
-        profileNav.src = profilepath
+        
         
     }).catch(e => console.log(e))
     
@@ -464,13 +471,23 @@ function logado(page) {
         let profileNav = document.getElementById("profilePicNav")
         let profileIcon = document.getElementById("profileIconNav").classList
         
-
-        let formatpath = data.picture_path.substring(1)
-        let profilepath = `http://localhost:3004${formatpath}`
+        if(data.picture_path != null && data.picture_path != undefined ){
+            let formatpath = data.picture_path.substring(1)
+            let profilepath = `http://localhost:3004${formatpath}`
+            profileNav.src = profilepath
+            profileIcon.add("d-none")
+            profileNav.classList.remove("d-none")
+        }
+        else{
+            profileNav.classList.add("d-none")
+            profileIcon.remove("d-none")
+        }
+            
+        
+        
 
         
-        profileNav.src = profilepath
-        profileIcon.add("d-none")
+        
 
 
     }).catch(e => console.error(e))
