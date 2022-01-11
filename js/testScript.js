@@ -463,6 +463,12 @@ $(document).on('click', '#upload_link', function(e) {
     $("#profilePicAltProfile").trigger('click');
 });
 
+function getDailyPack() {
+    axi.get("/getDailyPacket/" + localStorage.id).then(response => {
+        //createSticker
+    })
+}
+
 function logado(page) {
 
     getUser(localStorage.id).then( res => {
@@ -754,6 +760,10 @@ function getAnimations() {
             <li class="feed_row"></li>
         </ul>`
     }).catch(error => console.error(error))
+}
+
+function closePopUp() {
+    document.getElementById("exampleModal").style.display = "none"
 }
 
 function getStickers() {
